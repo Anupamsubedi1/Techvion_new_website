@@ -1,78 +1,114 @@
 "use client";
 import { motion, useInView } from "framer-motion";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { useRef } from "react";
+import {
+  Bot,
+  BrainCircuit,
+  Building2,
+  ClipboardCheck,
+  CloudCog,
+  CloudUpload,
+  Code2,
+  Gauge,
+  GitBranch,
+  Handshake,
+  Link2,
+  Network,
+  Server,
+  Sparkles,
+  Workflow,
+  Wrench,
+} from "lucide-react";
+import {
+  SiAndroid,
+  SiApple,
+  SiCss3,
+  SiDocker,
+  SiFlutter,
+  SiHtml5,
+  SiJavascript,
+  SiNextdotjs,
+  SiReact,
+} from "react-icons/si";
+import { useRef, type ElementType } from "react";
 
-const categories = [
+type TechItem = {
+  name: string;
+  desc: string;
+  icon: ElementType;
+};
+
+type TechCategory = {
+  name: string;
+  items: TechItem[];
+};
+
+const categories: TechCategory[] = [
   {
-    name: "Frontend",
+    name: "Custom Software Development",
     items: [
-      { name: "Next.js", desc: "React framework for production-grade apps." },
-      { name: "React", desc: "Component-driven UI library." },
-      { name: "TypeScript", desc: "Type-safe JavaScript for reliability." },
-      { name: "Tailwind CSS", desc: "Utility-first styling with design tokens." },
-      { name: "Framer Motion", desc: "Animations and micro-interactions." },
+      { name: "Enterprise Applications", desc: "Business-specific systems for complex organizational workflows.", icon: Building2 },
+      { name: "Internal Tools", desc: "Operational tools designed for team productivity and process control.", icon: Wrench },
+      { name: "System Integrations", desc: "Connected software ecosystems for seamless data flow.", icon: Link2 },
     ],
   },
   {
-    name: "Backend",
+    name: "Web Development",
     items: [
-      { name: "Node.js", desc: "Scalable JavaScript runtime." },
-      { name: "Express", desc: "Minimal backend framework." },
-      { name: "NestJS", desc: "Enterprise-grade Node framework." },
-      { name: "Serverless", desc: "Event-driven, cost-efficient APIs." },
+      { name: "HTML5", desc: "Semantic markup foundation for modern websites.", icon: SiHtml5 },
+      { name: "CSS3", desc: "Responsive styling and layout for modern UI.", icon: SiCss3 },
+      { name: "JavaScript", desc: "Core scripting language for dynamic web applications.", icon: SiJavascript },
+      { name: "React", desc: "Component-based UI development for scalable frontends.", icon: SiReact },
+      { name: "Next.js", desc: "Production framework for high-performance React applications.", icon: SiNextdotjs },
     ],
   },
   {
-    name: "Databases",
+    name: "Mobile App Development",
     items: [
-      { name: "PostgreSQL", desc: "Relational database for reliability." },
-      { name: "MongoDB", desc: "Flexible document database." },
-      { name: "Planetscale", desc: "Serverless MySQL platform." },
-      { name: "Redis", desc: "High-speed caching." },
+      { name: "Flutter", desc: "Cross-platform toolkit for high-quality mobile UI.", icon: SiFlutter },
+      { name: "React Native", desc: "Cross-platform mobile framework built with React.", icon: SiReact },
+      { name: "iOS", desc: "Native and cross-platform app delivery for Apple devices.", icon: SiApple },
+      { name: "Android", desc: "Native and cross-platform app delivery for Android devices.", icon: SiAndroid },
     ],
   },
   {
-    name: "DevOps",
+    name: "Quality Assurance & Testing",
     items: [
-      { name: "Docker", desc: "Containerization for consistent deployments." },
-      { name: "Kubernetes", desc: "Container orchestration at scale." },
-      { name: "Vercel", desc: "Edge hosting and CI/CD." },
-      { name: "Cloudflare", desc: "Performance and security at the edge." },
+      { name: "Manual Testing", desc: "Human-led testing for real-world behavior and UX validation.", icon: ClipboardCheck },
+      { name: "Automated Testing", desc: "Repeatable test suites to maintain software reliability.", icon: Bot },
+      { name: "Performance Testing", desc: "Load and speed validation for stable production releases.", icon: Gauge },
     ],
   },
   {
-    name: "Marketing Tools",
+    name: "Cloud Computing Services",
     items: [
-      { name: "GA4", desc: "Advanced analytics and insights." },
-      { name: "Search Console", desc: "SEO diagnostics and indexing." },
-      { name: "Hotjar", desc: "Behavior analytics and heatmaps." },
-      { name: "Meta Ads", desc: "Performance marketing campaigns." },
+      { name: "Cloud Infrastructure", desc: "Scalable infrastructure setup and management in the cloud.", icon: CloudCog },
+      { name: "Cloud Migration", desc: "Secure migration of workloads and services to cloud platforms.", icon: CloudUpload },
+      { name: "Hosting Solutions", desc: "Managed hosting environments tailored to business needs.", icon: Server },
     ],
   },
   {
-    name: "Business Tools",
+    name: "AI & Machine Learning",
     items: [
-      { name: "Stripe", desc: "Payments and subscriptions." },
-      { name: "HubSpot", desc: "CRM and marketing automation." },
-      { name: "Zapier", desc: "No-code automation." },
-      { name: "Notion", desc: "Knowledge management and docs." },
+      { name: "AI Solutions", desc: "Applied AI to automate repetitive and intelligence-heavy tasks.", icon: Sparkles },
+      { name: "Machine Learning", desc: "Model-driven solutions for prediction and optimization workflows.", icon: BrainCircuit },
+      { name: "Process Automation", desc: "Automated business pipelines for speed and consistency.", icon: Workflow },
     ],
   },
   {
-    name: "UI/UX",
+    name: "DevOps Services",
     items: [
-      { name: "Figma", desc: "Design systems and prototyping." },
-      { name: "Radix UI", desc: "Accessible UI primitives." },
-      { name: "shadcn/ui", desc: "Modern component library." },
+      { name: "CI/CD Pipelines", desc: "Continuous integration and delivery for faster releases.", icon: GitBranch },
+      { name: "Containerization", desc: "Portable and consistent runtime environments for applications.", icon: SiDocker },
+      { name: "Automation", desc: "Operational automation to improve deployment speed and efficiency.", icon: Workflow },
     ],
   },
   {
-    name: "Branding",
+    name: "API Development & Integration",
     items: [
-      { name: "Color Systems", desc: "Accessible and consistent palettes." },
-      { name: "Design Tokens", desc: "Systemized UI foundations." },
-      { name: "Logo Suites", desc: "Versatile brand identity assets." },
+      { name: "API Development", desc: "Secure and scalable API architecture for platform connectivity.", icon: Code2 },
+      { name: "CRM Integration", desc: "Integration layers connecting software with CRM platforms.", icon: Handshake },
+      { name: "ERP Integration", desc: "Data and workflow integration with ERP systems.", icon: Network },
     ],
   },
 ];
@@ -108,7 +144,7 @@ export function TechnologyPage() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="mt-3 max-w-xl text-base text-[#1F7A8C]"
           >
-            Our stack blends modern frameworks with robust cloud tooling for speed, reliability, and scale. Hover any badge for details.
+            Our technology stack is aligned directly with our service offerings. Hover any technology badge for details.
           </motion.p>
         </div>
       </section>
@@ -153,7 +189,8 @@ export function TechnologyPage() {
                     {cat.items.map((item) => (
                       <Tooltip key={item.name}>
                         <TooltipTrigger asChild>
-                          <span className="cursor-default rounded-md border border-[#BFDBF7] bg-[#E1E5F2]/60 px-2.5 py-1 text-xs font-semibold text-[#022B3A] transition-colors hover:border-[#1F7A8C] hover:bg-[#BFDBF7]">
+                          <span className="inline-flex cursor-default items-center gap-1.5 rounded-md border border-[#BFDBF7] bg-[#E1E5F2]/60 px-2.5 py-1 text-xs font-semibold text-[#022B3A] transition-colors hover:border-[#1F7A8C] hover:bg-[#BFDBF7]">
+                            <item.icon className="h-3.5 w-3.5" />
                             {item.name}
                           </span>
                         </TooltipTrigger>
