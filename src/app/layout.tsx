@@ -18,9 +18,9 @@ import { Footer } from "@/components/footer";
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.techvion.com"),
   icons: {
-    icon: "/techvion-logo.jpeg",
-    shortcut: "/techvion-logo.jpeg",
-    apple: "/techvion-logo.jpeg",
+    icon: "/techvion-logo.png",
+    shortcut: "/techvion-logo.png",
+    apple: "/techvion-logo.png",
   },
   title: {
     default: "Techvion — Scalable Digital Solutions",
