@@ -22,7 +22,7 @@ import {
 import {
   SiAndroid,
   SiApple,
-  SiCss3,
+  SiCss,
   SiDocker,
   SiFlutter,
   SiHtml5,
@@ -56,7 +56,7 @@ const categories: TechCategory[] = [
     name: "Web Development",
     items: [
       { name: "HTML5", desc: "Semantic markup foundation for modern websites.", icon: SiHtml5 },
-      { name: "CSS3", desc: "Responsive styling and layout for modern UI.", icon: SiCss3 },
+      { name: "CSS3", desc: "Responsive styling and layout for modern UI.", icon: SiCss },
       { name: "JavaScript", desc: "Core scripting language for dynamic web applications.", icon: SiJavascript },
       { name: "React", desc: "Component-based UI development for scalable frontends.", icon: SiReact },
       { name: "Next.js", desc: "Production framework for high-performance React applications.", icon: SiNextdotjs },
@@ -118,7 +118,7 @@ export function TechnologyPage() {
   const isInView = useInView(gridRef, { once: true, margin: "-60px" });
 
   return (
-    <div className="bg-white">
+    <div className="min-h-screen bg-white">
       {/* Hero */}
       <section className="bg-white pt-28 pb-16 px-6">
         <div className="mx-auto max-w-4xl">

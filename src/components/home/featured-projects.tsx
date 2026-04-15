@@ -22,7 +22,7 @@ const projects = [
     stack: ["Next.js", "Tailwind CSS", "Vercel"],
     href: "https://hnkcl.com/",
     screenshot:
-      "hnkcl_website.jpg",
+      "hnkcl_website.png",
   },
 ];
 
