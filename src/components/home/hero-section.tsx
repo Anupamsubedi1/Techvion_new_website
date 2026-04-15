@@ -7,9 +7,9 @@ import { useEffect, useMemo, useState } from "react";
 const words = ["Design.", "Build.", "Scale."];
 
 const slides = [
+  "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1800&q=80",
   "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1800&q=80",
   "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1800&q=80",
-  "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1800&q=80",
 ];
 
 export function HeroSection() {

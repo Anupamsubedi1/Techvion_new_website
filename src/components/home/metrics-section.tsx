@@ -5,7 +5,7 @@ import { AnimatedCounter } from "@/components/animated-counter";
 const metrics = [
   { label: "Client Satisfaction", value: 100, suffix: "%", note: "5-star rated across all engagements" },
   { label: "On-Time Delivery", value: 98, suffix: "%", note: "Consistent across 3+ years" },
-  { label: "Projects Completed", value: 8, suffix: "+", note: "Across industries and geographies" },
+  { label: "Projects Completed", value: 20, suffix: "+", note: "Across industries and geographies" },
   { label: "Countries Served", value: 2, suffix: "", note: "Global delivery, local understanding" },
 ];
 
