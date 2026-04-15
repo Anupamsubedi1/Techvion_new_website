@@ -7,45 +7,51 @@ import { useRef, useState, useEffect } from "react";
 const services = [
   {
     icon: Code2,
-    title: "Custom Web Development & Software Solutions",
-    desc: "High-performance, scalable web apps and bespoke software tailored to your business.",
-    features: ["Next.js + TypeScript", "API & Integrations", "Performance-first"],
-  },
-  {
-    icon: ShoppingCart,
-    title: "Custom E-commerce Development",
-    desc: "Conversion-focused storefronts with modern UX and robust backend integrations.",
-    features: ["Headless commerce", "Checkout optimization", "Analytics"],
-  },
-  {
-    icon: Video,
-    title: "Professional Video Editing & Graphic Design",
-    desc: "Premium visuals to elevate your brand across platforms.",
-    features: ["Brand kits", "Motion graphics", "Short-form & long-form"],
-  },
-  {
-    icon: Megaphone,
-    title: "Digital Marketing Services",
-    desc: "Search, social, and content strategies that drive measurable growth.",
-    features: ["SEO/SEM", "Paid social", "Content"],
-  },
-  {
-    icon: FileText,
-    title: "Website Content Writing & SEO Copywriting",
-    desc: "Clear, compelling copy that ranks and converts.",
-    features: ["Keyword research", "On-page SEO", "Tone of voice"],
+    title: "Custom Software Development",
+    desc: "We design and develop customized software solutions based on specific business requirements, including enterprise applications, internal tools, and system integrations.",
+    features: ["Enterprise applications", "Internal tools", "System integrations"],
   },
   {
     icon: Globe,
-    title: "Domain Registration & Management",
-    desc: "Hassle-free domain purchasing and DNS management.",
-    features: ["DNS setup", "SSL", "Renewals"],
+    title: "Web Development",
+    desc: "Using modern technologies such as HTML, CSS, JavaScript, React, and Next.js, we build responsive websites, web applications, and dynamic portals.",
+    features: ["HTML/CSS/JavaScript", "React", "Next.js"],
+  },
+  {
+    icon: ShoppingCart,
+    title: "Mobile App Development",
+    desc: "We develop high-quality native and cross-platform mobile applications for iOS and Android using technologies like Flutter and React Native.",
+    features: ["iOS & Android", "Flutter", "React Native"],
+  },
+  {
+    icon: FileText,
+    title: "Quality Assurance & Testing",
+    desc: "We ensure the reliability and performance of software products through thorough manual and automated testing processes.",
+    features: ["Manual testing", "Automated testing", "Performance checks"],
   },
   {
     icon: Server,
-    title: "Web Hosting & Managed Hosting",
-    desc: "Reliable hosting with monitoring, backups, and security.",
-    features: ["Uptime SLAs", "Security", "Backups"],
+    title: "Cloud Computing Services",
+    desc: "We offer cloud infrastructure management, migration, and hosting solutions tailored to business needs.",
+    features: ["Infrastructure management", "Cloud migration", "Hosting solutions"],
+  },
+  {
+    icon: Video,
+    title: "AI & Machine Learning",
+    desc: "We develop and implement AI and ML-based solutions to automate processes and enable smarter business decision-making.",
+    features: ["Process automation", "ML implementation", "Smarter decisions"],
+  },
+  {
+    icon: Megaphone,
+    title: "DevOps Services",
+    desc: "We streamline development and operations through CI/CD pipelines, containerization, and automation to improve efficiency and deployment speed.",
+    features: ["CI/CD pipelines", "Containerization", "Automation"],
+  },
+  {
+    icon: FileText,
+    title: "API Development & Integration",
+    desc: "We build and integrate APIs to connect various platforms such as CRM and ERP systems, enabling seamless workflows and automation.",
+    features: ["CRM/ERP integration", "Seamless workflows", "Automation"],
   },
 ];
 
@@ -75,6 +81,7 @@ export function ServicesPage() {
     { x: -80, y: 10, rotate: -8 },
     { x: 30, y: -20, rotate: 4 },
     { x: -20, y: 50, rotate: -5 },
+    { x: 70, y: -10, rotate: 6 },
   ];
 
   const getCardAnimation = (i: number) => {
