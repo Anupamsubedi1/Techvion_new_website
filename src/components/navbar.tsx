@@ -1,6 +1,5 @@
 "use client";
 import Link from "next/link";
-import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Menu } from "lucide-react";
@@ -41,14 +40,10 @@ export function Navbar() {
       <div className="absolute inset-0 border-b border-[#E1E5F2] bg-white/90 backdrop-blur-md" />
       <nav className="relative mx-auto flex h-[70px] w-full max-w-7xl items-center justify-between px-5 sm:px-7 lg:px-11">
         <Link href="/" className="flex items-center gap-2.5">
-          <Image
-            src="/techvion-logo.jpeg"
-            alt="Techvion"
-            width={154}
-            height={40}
-            priority
-            className="h-9 w-auto"
-          />
+            <span className="text-[26px] font-bold leading-none tracking-[0.08em] text-[#011f4b]">
+              <span className="text-[#005b96]">Tech</span>{" "}
+              <span className="text-[#03396c]">Vion</span>
+            </span>
         </Link>
 
         {/* Desktop links */}
@@ -95,7 +90,10 @@ export function Navbar() {
             <SheetContent side="right" className="w-72 border-[#E1E5F2] bg-[#01151D] p-0">
               <SheetHeader className="border-b border-white/10 px-7 py-6">
                 <SheetTitle className="text-left">
-                  <Image src="/techvion-logo.jpeg" alt="Techvion" width={132} height={35} className="h-8 w-auto brightness-0 invert" />
+                    <span className="text-[24px] font-bold leading-none tracking-[0.08em]">
+                      <span className="text-[#b3cde0]">Tech</span>{" "}
+                      <span className="text-[#6497b1]">Vion</span>
+                    </span>
                 </SheetTitle>
               </SheetHeader>
               <nav className="flex flex-col p-5">
