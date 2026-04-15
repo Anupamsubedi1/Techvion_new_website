@@ -10,7 +10,7 @@ const websiteProjects = [
     description: "Trekking platform with curated routes and clear trip discovery paths optimized for conversions.",
     outcome: "Improved trip discovery and engagement",
     category: "Travel",
-    href: "https://bigskytreks.com/trekking",
+    href: "https://bigskytreks.com/",
     screenshot:
       "bigskytreks_website.jpg",
   },
@@ -30,7 +30,7 @@ const websiteProjects = [
     description: "A modern cabin booking website offering a relaxing user experience with smooth animations and clean design.",
     outcome: "Improved user engagement and booking conversions",
     category: "Hospitality",
-    href: "https://your-unwindcabins-link.com/",
+    href: "https://unwindcabins.netlify.app/",
     screenshot: "unwinde_cambin_website.jpg",
   },
   {
@@ -243,13 +243,13 @@ export function ProjectsPage() {
 
       <section className="px-6 py-16">
         <div className="mx-auto max-w-6xl">
-          <div className="rounded-xl border border-[#E1E5F2] bg-[#E1E5F2]/35 p-2">
-            <div className="flex flex-wrap gap-2">
+          <div className="flex justify-center">
+            <div className="inline-flex flex-wrap justify-center gap-2 rounded-2xl border border-[#E1E5F2] bg-[#E1E5F2]/35 p-2.5">
               {projectViews.map((projectView) => (
                 <button
                   key={projectView}
                   onClick={() => setView(projectView)}
-                  className={`rounded-lg px-4 py-2 text-sm font-semibold transition-colors ${
+                  className={`rounded-xl px-7 py-3 text-base font-semibold transition-colors md:px-8 md:text-lg ${
                     view === projectView
                       ? "bg-[#022B3A] text-white"
                       : "bg-white text-[#022B3A] hover:bg-[#BFDBF7]"

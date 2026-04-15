@@ -1,7 +1,8 @@
 "use client";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { Phone, Mail, MapPin, Linkedin, Twitter, Instagram, ArrowRight, MessageCircle } from "lucide-react";
+import { Phone, Mail, MapPin, ArrowRight } from "lucide-react";
+import { InquiryFormCard } from "@/components/inquiry-form-card";
 
 const info = [
   {
@@ -85,58 +86,21 @@ export function ContactPage() {
         </div>
       </section>
 
-      {/* Social + CTA */}
+      {/* Inquiry + Form */}
       <section className="bg-[#E1E5F2]/40 px-6 py-16">
         <div className="mx-auto max-w-5xl">
-          <div className="grid gap-10 md:grid-cols-2">
-            {/* Social Links */}
+          <div className="grid gap-10 md:grid-cols-[3fr_7fr]">
+            {/* Inquiry CTA */}
             <motion.div
               initial={{ opacity: 0, x: -24 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
+              className="flex flex-col justify-center"
             >
-              <span className="text-sm font-semibold uppercase tracking-widest text-[#1F7A8C]">Find Us Online</span>
-              <h2 className="mt-3 text-2xl font-extrabold text-[#022B3A]">Follow Along</h2>
-              <p className="mt-3 text-[#1F7A8C]">Stay updated on our latest projects and insights.</p>
-              <div className="mt-6 flex flex-col gap-4">
-                {[
-                  { icon: Linkedin, label: "LinkedIn", href: "#" },
-                  { icon: Twitter, label: "Twitter / X", href: "#" },
-                  { icon: Instagram, label: "Instagram", href: "#" },
-                ].map(({ icon: Icon, label, href }, i) => (
-                  <motion.a
-                    key={label}
-                    href={href}
-                    initial={{ opacity: 0, x: -16 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.1 * i, duration: 0.4 }}
-                    whileHover={{ x: 4 }}
-                    className="group inline-flex items-center gap-3 text-[#022B3A] transition-colors hover:text-[#1F7A8C]"
-                  >
-                    <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-[#BFDBF7] bg-white group-hover:border-[#1F7A8C]">
-                      <Icon className="h-5 w-5" />
-                    </div>
-                    <span className="font-semibold">{label}</span>
-                    <ArrowRight className="h-4 w-4 opacity-0 transition-opacity group-hover:opacity-100" />
-                  </motion.a>
-                ))}
-              </div>
-            </motion.div>
-
-            {/* CTA Panel */}
-            <motion.div
-              initial={{ opacity: 0, x: 24 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="flex flex-col justify-center rounded-2xl border border-[#BFDBF7] bg-white p-8"
-              style={{ boxShadow: "0 4px 24px rgba(2,43,58,0.07)" }}
-            >
-              <MessageCircle className="h-10 w-10 text-[#1F7A8C]" />
-              <h3 className="mt-4 text-xl font-extrabold text-[#022B3A]">Have a project in mind?</h3>
-              <p className="mt-3 text-[#1F7A8C]">
+              <span className="text-sm font-semibold uppercase tracking-widest text-[#1F7A8C]">Start a Conversation</span>
+              <h2 className="mt-3 text-2xl font-extrabold text-[#022B3A] md:text-3xl">Have a project in mind?</h2>
+              <p className="mt-3 max-w-md text-[#1F7A8C]">
                 Fill out our inquiry form and we&apos;ll schedule a discovery call within 24 hours.
               </p>
               <div className="mt-6 flex flex-wrap gap-3">
@@ -159,6 +123,17 @@ export function ContactPage() {
                   </motion.span>
                 </a>
               </div>
+            </motion.div>
+
+            {/* Inquiry Form */}
+            <motion.div
+              initial={{ opacity: 0, x: 24 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="rounded-2xl"
+            >
+              <InquiryFormCard className="border-[#BFDBF7] p-8 shadow-[0_4px_24px_rgba(2,43,58,0.07)] md:p-8" />
             </motion.div>
           </div>
         </div>
