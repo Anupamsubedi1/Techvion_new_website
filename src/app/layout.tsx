@@ -49,7 +49,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" suppressHydrationWarning>
       <body className={`${geistSans.variable} ${geistMono.variable} min-h-dvh overflow-x-hidden bg-white text-[#022B3A] antialiased`}>
         <Navbar />
-        <main className="relative">
+        <main className="relative overflow-x-hidden">
           {children}
         </main>
         <Footer />

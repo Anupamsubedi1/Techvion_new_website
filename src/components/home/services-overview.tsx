@@ -61,7 +61,7 @@ export function ServicesOverview() {
   };
 
   return (
-    <section className="bg-white py-20">
+    <section className="overflow-hidden bg-white py-20">
       <div className="mx-auto max-w-6xl px-6" ref={sectionRef}>
         <motion.div
           initial={{ opacity: 0, y: 16 }}
