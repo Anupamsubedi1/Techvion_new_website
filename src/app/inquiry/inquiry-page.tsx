@@ -117,8 +117,8 @@ export function InquiryPage() {
                   </div>
                   <div>
                     <p className="text-sm font-semibold text-[#022B3A]">Email</p>
-                    <a href="mailto:techvion@gmail.com" className="text-sm text-[#1F7A8C] hover:underline">
-                      techvion@gmail.com
+                    <a href="mailto:techviontechnology@gmail.com" className="text-sm text-[#1F7A8C] hover:underline">
+                      techviontechnology@gmail.com
                     </a>
                   </div>
                 </div>

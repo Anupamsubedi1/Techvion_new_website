@@ -13,8 +13,8 @@ const info = [
   {
     icon: Mail,
     label: "Email",
-    value: "hello@techvion.com",
-    href: "mailto:hello@techvion.com",
+    value: "techviontechnology@gmail.com",
+    href: "mailto:techviontechnology@gmail.com",
   },
   {
     icon: MapPin,
@@ -149,7 +149,7 @@ export function ContactPage() {
                     Send Inquiry <ArrowRight className="h-4 w-4" />
                   </motion.span>
                 </Link>
-                <a href="mailto:hello@techvion.com">
+                <a href="mailto:techviontechnology@gmail.com">
                   <motion.span
                     whileHover={{ scale: 1.04 }}
                     whileTap={{ scale: 0.97 }}
