@@ -12,18 +12,27 @@ const projects = [
     category: "Travel",
     href: "https://bigskytreks.com/trekking",
     screenshot:
-      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1400&q=80",
+      "bigskytreks_website.jpg",
   },
-  {
-    title: "Anupam Subedi Portfolio",
-    stack: ["React", "Tailwind", "Animations"],
-    description: "Personal portfolio showcasing work, experience, and contact touchpoints with smooth animations.",
-    outcome: "Clear personal branding and conversions",
-    category: "Portfolio",
-    href: "https://www.anupamsubedi.com.np/",
+    {
+    title: "Himalaya Nepal Krishi Co. Ltd",
+    stack: ["Next.js", "Tailwind", "Vercel"],
+    description: "Corporate website for an agricultural company with clean layout, brand storytelling, and modern UX.",
+    outcome: "Professional digital presence established",
+    category: "Corporate",
+    href: "https://hnkcl.com/",
     screenshot:
-      "https://images.unsplash.com/photo-1526498460520-4c246339dccb?auto=format&fit=crop&w=1400&q=80",
-  },
+      "hnkcl_website.jpg",
+  }, 
+{
+  title: "UNWINDCABINS",
+  stack: ["React", "Tailwind", "Animations"],
+  description: "A modern cabin booking website offering a relaxing user experience with smooth animations and clean design.",
+  outcome: "Improved user engagement and booking conversions",
+  category: "Hospitality",
+  href: "https://your-unwindcabins-link.com/",
+  screenshot: "unwinde_cambin_website.jpg",
+}, 
   {
     title: "Mardi Treks",
     stack: ["Next.js", "Tailwind", "Vercel"],
@@ -32,7 +41,7 @@ const projects = [
     category: "Travel",
     href: "https://new-mardi-treks.vercel.app/",
     screenshot:
-      "https://images.unsplash.com/photo-1517292987719-0369a794ec0f?auto=format&fit=crop&w=1400&q=80",
+      "mardi_treks_website.jpg",
   },
   {
     title: "QuickStay Hotel Booking",
@@ -42,17 +51,7 @@ const projects = [
     category: "Web App",
     href: "https://quick-stay-hotel-booking-website-fr.vercel.app/",
     screenshot:
-      "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1400&q=80",
-  },
-  {
-    title: "Himalaya Nepal Krishi Co. Ltd",
-    stack: ["Next.js", "Tailwind", "Vercel"],
-    description: "Corporate website for an agricultural company with clean layout, brand storytelling, and modern UX.",
-    outcome: "Professional digital presence established",
-    category: "Corporate",
-    href: "https://hnkcl.vercel.app/",
-    screenshot:
-      "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?auto=format&fit=crop&w=1400&q=80",
+      "quick_stay_website.jpg",
   },
   {
     title: "Connectify Chat App",
@@ -60,7 +59,7 @@ const projects = [
     description: "Real-time chat application with instant messaging, user authentication, and a polished chat UI.",
     outcome: "Smooth real-time communication",
     category: "Web App",
-    href: "https://chatapp-connectify.netlify.app/login",
+    href: "",
     screenshot:
       "https://images.unsplash.com/photo-1611606063065-ee7946f0787a?auto=format&fit=crop&w=1400&q=80",
   },

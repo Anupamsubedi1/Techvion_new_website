@@ -12,17 +12,17 @@ const projects = [
     stack: ["Next.js", "Tailwind CSS", "SEO"],
     href: "https://bigskytreks.com/trekking",
     screenshot:
-      "https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07?auto=format&fit=crop&w=1400&q=80",
+      "bigskytreks_website.jpg",
   },
   {
-    title: "Mardi Treks",
-    subtitle: "Trekking Marketing Site",
+    title: "Himalayan Krisihi Company Nepal",
+    subtitle: "Multivendor E-commerce for Agriculture",
     description:
-      "Modern Next.js marketing site for Mardi Himal treks with fast load times, clean UX, and high organic visibility.",
+      "A modern multivendor e-commerce platform for Nepal’s agriculture market, connecting farmers and buyers with a seamless experience.",
     stack: ["Next.js", "Tailwind CSS", "Vercel"],
-    href: "https://new-mardi-treks.vercel.app/",
+    href: "https://hnkcl.com/",
     screenshot:
-      "https://images.unsplash.com/photo-1501854140801-50d01698950b?auto=format&fit=crop&w=1400&q=80",
+      "hnkcl_website.jpg",
   },
 ];
 
