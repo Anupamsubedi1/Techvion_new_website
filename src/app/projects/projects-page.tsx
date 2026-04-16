@@ -39,7 +39,7 @@ const websiteProjects = [
     description: "Modern Next.js site for Mardi Himal treks with fast performance and seamless booking UX.",
     outcome: "Faster load times and better UX",
     category: "Travel",
-    href: "https://new-mardi-treks.vercel.app/",
+    href: "https://marditreks.com/",
     screenshot:
       "mardi_treks_website.jpg",
   },
