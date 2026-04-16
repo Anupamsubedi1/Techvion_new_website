@@ -53,6 +53,15 @@ const websiteProjects = [
     screenshot:
       "quick_stay_website.jpg",
   },
+{
+  title: "Kapada",
+  stack: ["React", "Node.js", "MongoDB"],
+  description: "An e-commerce platform for a clothing brand, featuring a modern product catalog, real-time inventory updates, secure checkout, and a fully responsive shopping experience.",
+  outcome: "Enhances customer engagement and simplifies the online shopping journey with a smooth and intuitive interface.",
+  category: "Web App",
+  href: "https://kapada-frontend.vercel.app/",
+  screenshot: "kapada_website.jpg",
+},
   {
     title: "Connectify Chat App",
     stack: ["React", "Socket.io", "Node.js"],
