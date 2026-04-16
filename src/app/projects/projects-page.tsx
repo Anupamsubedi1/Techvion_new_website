@@ -25,13 +25,13 @@ const websiteProjects = [
       "hnkcl_website.png",
   },
   {
-    title: "UNWINDCABINS",
-    stack: ["React", "Tailwind", "Animations"],
-    description: "A modern cabin booking website offering a relaxing user experience with smooth animations and clean design.",
-    outcome: "Improved user engagement and booking conversions",
-    category: "Hospitality",
-    href: "https://unwindcabins.netlify.app/",
-    screenshot: "unwinde_cambin_website.jpg",
+    title: "Kapada",
+    stack: ["React", "Node.js", "MongoDB"],
+    description: "An e-commerce platform for a clothing brand, featuring a modern product catalog.",
+    outcome: "Enhances customer engagement and simplifies the online shopping.",
+    category: "Web App",
+    href: "https://kapada-frontend.vercel.app/",
+    screenshot: "kapada_website.jpg",
   },
   {
     title: "Mardi Treks",
@@ -53,15 +53,15 @@ const websiteProjects = [
     screenshot:
       "quick_stay_website.jpg",
   },
-{
-  title: "Kapada",
-  stack: ["React", "Node.js", "MongoDB"],
-  description: "An e-commerce platform for a clothing brand, featuring a modern product catalog, real-time inventory updates, secure checkout, and a fully responsive shopping experience.",
-  outcome: "Enhances customer engagement and simplifies the online shopping journey with a smooth and intuitive interface.",
-  category: "Web App",
-  href: "https://kapada-frontend.vercel.app/",
-  screenshot: "kapada_website.jpg",
-},
+  {
+    title: "UNWINDCABINS",
+    stack: ["React", "Tailwind", "Animations"],
+    description: "A modern cabin booking website offering a relaxing user experience with smooth animations and clean design.",
+    outcome: "Improved user engagement and booking conversions",
+    category: "Hospitality",
+    href: "https://unwindcabins.netlify.app/",
+    screenshot: "unwinde_cambin_website.jpg",
+  },
   {
     title: "Connectify Chat App",
     stack: ["React", "Socket.io", "Node.js"],
@@ -70,7 +70,7 @@ const websiteProjects = [
     category: "Web App",
     href: "",
     screenshot:
-      "https://images.unsplash.com/photo-1611606063065-ee7946f0787a?auto=format&fit=crop&w=1400&q=80",
+      "connectify.jpeg",
   },
 ];
 
