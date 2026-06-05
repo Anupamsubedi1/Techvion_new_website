@@ -1,212 +1,174 @@
-"use client";
-import { motion, useInView } from "framer-motion";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import {
-  Bot,
-  BrainCircuit,
-  Building2,
-  ClipboardCheck,
-  CloudCog,
-  CloudUpload,
-  Code2,
-  Gauge,
-  GitBranch,
-  Handshake,
-  Link2,
-  Network,
-  Server,
-  Sparkles,
-  Workflow,
-  Wrench,
-} from "lucide-react";
-import {
-  SiAndroid,
-  SiApple,
-  SiCss,
-  SiDocker,
-  SiFlutter,
-  SiHtml5,
-  SiJavascript,
   SiNextdotjs,
   SiReact,
+  SiTypescript,
+  SiTailwindcss,
+  SiFramer,
+  SiFlutter,
+  SiApple,
+  SiAndroid,
+  SiNodedotjs,
+  SiPostgresql,
+  SiMongodb,
+  SiFirebase,
+  SiCloudinary,
+  SiGraphql,
+  SiVercel,
+  SiDocker,
+  SiGithub,
 } from "react-icons/si";
-import { useRef, type ElementType } from "react";
+import { Cloud, Check } from "lucide-react";
+import { Container, SectionHeading } from "@/components/site/layout";
+import { Stagger, RevealItem } from "@/components/site/reveal";
+import { PageHero } from "@/components/site/page-hero";
+import { CTAButton } from "@/components/site/cta-button";
+import { ProcessTimeline } from "@/components/sections/process-timeline";
+import { CTASection } from "@/components/sections/cta-section";
+import { Icon } from "@/components/site/icon";
+import { principles, stackGroups, pillars } from "@/content/how-we-build";
 
-type TechItem = {
-  name: string;
-  desc: string;
-  icon: ElementType;
+const brandIcons: Record<string, React.ComponentType<{ className?: string }>> = {
+  nextjs: SiNextdotjs,
+  react: SiReact,
+  typescript: SiTypescript,
+  tailwind: SiTailwindcss,
+  framer: SiFramer,
+  flutter: SiFlutter,
+  apple: SiApple,
+  android: SiAndroid,
+  node: SiNodedotjs,
+  postgres: SiPostgresql,
+  mongo: SiMongodb,
+  firebase: SiFirebase,
+  cloudinary: SiCloudinary,
+  graphql: SiGraphql,
+  vercel: SiVercel,
+  docker: SiDocker,
+  github: SiGithub,
+  aws: Cloud,
 };
-
-type TechCategory = {
-  name: string;
-  items: TechItem[];
-};
-
-const categories: TechCategory[] = [
-  {
-    name: "Custom Software Development",
-    items: [
-      { name: "Enterprise Applications", desc: "Business-specific systems for complex organizational workflows.", icon: Building2 },
-      { name: "Internal Tools", desc: "Operational tools designed for team productivity and process control.", icon: Wrench },
-      { name: "System Integrations", desc: "Connected software ecosystems for seamless data flow.", icon: Link2 },
-    ],
-  },
-  {
-    name: "Web Development",
-    items: [
-      { name: "HTML5", desc: "Semantic markup foundation for modern websites.", icon: SiHtml5 },
-      { name: "CSS3", desc: "Responsive styling and layout for modern UI.", icon: SiCss },
-      { name: "JavaScript", desc: "Core scripting language for dynamic web applications.", icon: SiJavascript },
-      { name: "React", desc: "Component-based UI development for scalable frontends.", icon: SiReact },
-      { name: "Next.js", desc: "Production framework for high-performance React applications.", icon: SiNextdotjs },
-    ],
-  },
-  {
-    name: "Mobile App Development",
-    items: [
-      { name: "Flutter", desc: "Cross-platform toolkit for high-quality mobile UI.", icon: SiFlutter },
-      { name: "React Native", desc: "Cross-platform mobile framework built with React.", icon: SiReact },
-      { name: "iOS", desc: "Native and cross-platform app delivery for Apple devices.", icon: SiApple },
-      { name: "Android", desc: "Native and cross-platform app delivery for Android devices.", icon: SiAndroid },
-    ],
-  },
-  {
-    name: "Quality Assurance & Testing",
-    items: [
-      { name: "Manual Testing", desc: "Human-led testing for real-world behavior and UX validation.", icon: ClipboardCheck },
-      { name: "Automated Testing", desc: "Repeatable test suites to maintain software reliability.", icon: Bot },
-      { name: "Performance Testing", desc: "Load and speed validation for stable production releases.", icon: Gauge },
-    ],
-  },
-  {
-    name: "Cloud Computing Services",
-    items: [
-      { name: "Cloud Infrastructure", desc: "Scalable infrastructure setup and management in the cloud.", icon: CloudCog },
-      { name: "Cloud Migration", desc: "Secure migration of workloads and services to cloud platforms.", icon: CloudUpload },
-      { name: "Hosting Solutions", desc: "Managed hosting environments tailored to business needs.", icon: Server },
-    ],
-  },
-  {
-    name: "AI & Machine Learning",
-    items: [
-      { name: "AI Solutions", desc: "Applied AI to automate repetitive and intelligence-heavy tasks.", icon: Sparkles },
-      { name: "Machine Learning", desc: "Model-driven solutions for prediction and optimization workflows.", icon: BrainCircuit },
-      { name: "Process Automation", desc: "Automated business pipelines for speed and consistency.", icon: Workflow },
-    ],
-  },
-  {
-    name: "DevOps Services",
-    items: [
-      { name: "CI/CD Pipelines", desc: "Continuous integration and delivery for faster releases.", icon: GitBranch },
-      { name: "Containerization", desc: "Portable and consistent runtime environments for applications.", icon: SiDocker },
-      { name: "Automation", desc: "Operational automation to improve deployment speed and efficiency.", icon: Workflow },
-    ],
-  },
-  {
-    name: "API Development & Integration",
-    items: [
-      { name: "API Development", desc: "Secure and scalable API architecture for platform connectivity.", icon: Code2 },
-      { name: "CRM Integration", desc: "Integration layers connecting software with CRM platforms.", icon: Handshake },
-      { name: "ERP Integration", desc: "Data and workflow integration with ERP systems.", icon: Network },
-    ],
-  },
-];
 
 export function TechnologyPage() {
-  const gridRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(gridRef, { once: true, margin: "-60px" });
-
   return (
-    <div className="min-h-screen bg-white">
-      {/* Hero */}
-      <section className="bg-white pt-28 pb-16 px-6">
-        <div className="mx-auto max-w-4xl">
-          <motion.span
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="text-sm font-semibold uppercase tracking-widest text-[#1F7A8C]"
-          >
-            Our Stack
-          </motion.span>
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="mt-2 text-4xl font-bold text-[#022B3A] md:text-5xl"
-          >
-            Technology We Trust
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="mt-3 max-w-xl text-base text-[#1F7A8C]"
-          >
-            Our technology stack is aligned directly with our service offerings. Hover any technology badge for details.
-          </motion.p>
-        </div>
+    <>
+      <PageHero
+        tone="night"
+        eyebrow="How we build"
+        title="Engineering you can build a business on"
+        description="A modern, boring-on-purpose stack and a disciplined process, so what we ship is fast, secure, accessible and easy to maintain for years."
+        actions={
+          <>
+            <CTAButton href="/contact" variant="accent" size="lg" arrow>
+              Start a project
+            </CTAButton>
+            <CTAButton href="/projects" variant="glass" size="lg">
+              See it in production
+            </CTAButton>
+          </>
+        }
+      />
+
+      {/* Principles */}
+      <section className="bg-white py-20 md:py-28">
+        <Container>
+          <SectionHeading
+            eyebrow="Principles"
+            title="The standards behind every build"
+            description="These aren't slogans; they're constraints we hold ourselves to on every project."
+            className="mb-14"
+          />
+          <Stagger className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+            {principles.map((p) => (
+              <RevealItem key={p.title}>
+                <div className="flex h-full gap-4 rounded-2xl border border-line bg-white p-6 shadow-soft">
+                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-accent-soft text-accent-ink">
+                    <Icon name={p.icon} className="h-5 w-5" />
+                  </span>
+                  <div>
+                    <h3 className="text-base font-semibold text-ink">{p.title}</h3>
+                    <p className="mt-1.5 text-sm leading-relaxed text-mutedink">{p.desc}</p>
+                  </div>
+                </div>
+              </RevealItem>
+            ))}
+          </Stagger>
+        </Container>
       </section>
 
-      {/* Tech Grid */}
-      <section className="px-6 py-16">
-        <div className="mx-auto max-w-6xl" ref={gridRef}>
-          <TooltipProvider>
-            <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-              {categories.map((cat, i) => (
-                <motion.div
-                  key={cat.name}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={
-                    isInView
-                      ? {
-                          opacity: 1,
-                          y: [0, -5, 0],
-                        }
-                      : { opacity: 0, y: 20 }
-                  }
-                  transition={
-                    isInView
-                      ? {
-                          opacity: { duration: 0.6, delay: i * 0.1 },
-                          y: {
-                            duration: 5,
-                            delay: i * 0.6,
-                            repeat: Infinity,
-                            repeatType: "mirror" as const,
-                            ease: [0.45, 0.05, 0.55, 0.95],
-                          },
-                        }
-                      : { duration: 0.6 }
-                  }
-                  className="rounded-xl border border-[#E1E5F2] bg-white p-5 transition-shadow hover:shadow-md"
-                >
-                  <div className="mb-3 text-xs font-bold uppercase tracking-widest text-[#1F7A8C]">
-                    {cat.name}
+      {/* Stack */}
+      <section className="bg-surface py-20 md:py-28">
+        <Container>
+          <SectionHeading
+            eyebrow="The stack"
+            title="Modern tools, chosen to last"
+            description="We favour proven, well-supported technology over hype, so your product ages gracefully."
+            className="mb-14"
+          />
+          <Stagger className="grid gap-5 md:grid-cols-2">
+            {stackGroups.map((group) => (
+              <RevealItem key={group.name}>
+                <div className="h-full rounded-3xl border border-line bg-white p-7 shadow-soft">
+                  <h3 className="text-sm font-semibold uppercase tracking-wide text-faint">{group.name}</h3>
+                  <div className="mt-5 flex flex-wrap gap-2.5">
+                    {group.items.map((item) => {
+                      const BrandIcon = brandIcons[item.key] ?? Cloud;
+                      return (
+                        <span
+                          key={item.name}
+                          className="inline-flex items-center gap-2 rounded-full border border-line bg-surface px-3.5 py-2 text-sm font-medium text-ink transition-colors hover:border-ink-200"
+                        >
+                          <BrandIcon className="h-4 w-4 text-accent-ink" />
+                          {item.name}
+                        </span>
+                      );
+                    })}
                   </div>
-                  <div className="flex flex-wrap gap-1.5">
-                    {cat.items.map((item) => (
-                      <Tooltip key={item.name}>
-                        <TooltipTrigger asChild>
-                          <span className="inline-flex cursor-default items-center gap-1.5 rounded-md border border-[#BFDBF7] bg-[#E1E5F2]/60 px-2.5 py-1 text-xs font-semibold text-[#022B3A] transition-colors hover:border-[#1F7A8C] hover:bg-[#BFDBF7]">
-                            <item.icon className="h-3.5 w-3.5" />
-                            {item.name}
-                          </span>
-                        </TooltipTrigger>
-                        <TooltipContent className="border-[#BFDBF7] bg-[#022B3A] text-white">
-                          {item.desc}
-                        </TooltipContent>
-                      </Tooltip>
-                    ))}
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </TooltipProvider>
-        </div>
+                </div>
+              </RevealItem>
+            ))}
+          </Stagger>
+        </Container>
       </section>
-    </div>
+
+      {/* Pillars */}
+      <section className="bg-white py-20 md:py-28">
+        <Container>
+          <SectionHeading
+            eyebrow="What makes a release safe"
+            title="Six disciplines, on every project"
+            description="Quality isn't a phase at the end; it's built into how we architect, test, ship and watch your product."
+            className="mb-14"
+          />
+          <Stagger className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+            {pillars.map((pillar) => (
+              <RevealItem key={pillar.title}>
+                <div className="flex h-full flex-col rounded-3xl border border-line bg-white p-7 shadow-soft">
+                  <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-ink text-white">
+                    <Icon name={pillar.icon} className="h-6 w-6 text-accent-bright" />
+                  </span>
+                  <h3 className="mt-5 text-lg font-semibold text-ink">{pillar.title}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-mutedink">{pillar.desc}</p>
+                  <ul className="mt-5 space-y-2 border-t border-line pt-5">
+                    {pillar.points.map((pt) => (
+                      <li key={pt} className="flex items-center gap-2.5 text-sm text-ink">
+                        <Check className="h-4 w-4 shrink-0 text-accent-ink" />
+                        {pt}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </RevealItem>
+            ))}
+          </Stagger>
+        </Container>
+      </section>
+
+      <ProcessTimeline tone="surface" />
+
+      <CTASection
+        title="Want this rigor on your product?"
+        description="Whether it's a new build or an audit of something you already have, let's talk."
+      />
+    </>
   );
 }
-

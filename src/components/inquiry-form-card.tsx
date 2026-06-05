@@ -1,143 +1,167 @@
 "use client";
 
 import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
+import { useForm, type UseFormReturn } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { inquirySchema, type InquiryValues } from "@/lib/inquiry-schema";
 import { motion } from "framer-motion";
-import { ArrowRight, CheckCircle2, MessageCircle } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { ArrowRight, CheckCircle2, Loader2, MessageCircle, AlertCircle } from "lucide-react";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import { site } from "@/content/site";
 import { cn } from "@/lib/utils";
 
-const schema = z.object({
-  fullName: z.string().min(2, "Required"),
-  email: z.string().email("Invalid email"),
-  company: z.string().optional(),
-  phone: z.string().optional(),
-  projectType: z.string().min(1, "Please select a project type"),
-  timeline: z.string().optional(),
-  description: z.string().min(10, "Please provide a brief description"),
-});
+const projectTypes = [
+  { value: "custom-software", label: "Custom Software" },
+  { value: "web-ecommerce", label: "Web & E-commerce" },
+  { value: "mobile-app", label: "Mobile App" },
+  { value: "digital-marketing", label: "Digital Marketing & SEO" },
+  { value: "maintenance", label: "Maintenance & Support" },
+  { value: "other", label: "Something else" },
+];
 
-type InquiryFormValues = z.infer<typeof schema>;
+const budgets = [
+  { value: "under-5k", label: "Under $5k" },
+  { value: "5k-15k", label: "$5k – $15k" },
+  { value: "15k-50k", label: "$15k – $50k" },
+  { value: "50k-plus", label: "$50k+" },
+  { value: "unsure", label: "Not sure yet" },
+];
 
-const WHATSAPP_NUMBER = "9779843012542";
+const timelines = [
+  { value: "asap", label: "ASAP" },
+  { value: "1-month", label: "Within a month" },
+  { value: "1-3-months", label: "1 – 3 months" },
+  { value: "3-plus-months", label: "3+ months" },
+  { value: "flexible", label: "Flexible" },
+];
 
-function buildWhatsAppURL(values?: Partial<InquiryFormValues>) {
+function buildWhatsApp(values: Partial<InquiryValues>) {
   const lines = ["Hi Techvion! I'd like to discuss a project."];
-  if (values?.fullName) lines.push(`Name: ${values.fullName}`);
-  if (values?.email) lines.push(`Email: ${values.email}`);
-  if (values?.company) lines.push(`Company: ${values.company}`);
-  if (values?.projectType) lines.push(`Project Type: ${values.projectType}`);
-  if (values?.timeline) lines.push(`Timeline: ${values.timeline}`);
-  if (values?.description) lines.push(`Details: ${values.description}`);
-  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(lines.join("\n"))}`;
+  if (values.fullName) lines.push(`Name: ${values.fullName}`);
+  if (values.email) lines.push(`Email: ${values.email}`);
+  if (values.company) lines.push(`Company: ${values.company}`);
+  if (values.projectType) lines.push(`Project: ${values.projectType}`);
+  if (values.budget) lines.push(`Budget: ${values.budget}`);
+  if (values.timeline) lines.push(`Timeline: ${values.timeline}`);
+  if (values.description) lines.push(`Details: ${values.description}`);
+  return `https://wa.me/${site.whatsappNumber}?text=${encodeURIComponent(lines.join("\n"))}`;
 }
 
-type InquiryFormCardProps = {
+const inputClass =
+  "h-12 rounded-xl border-line bg-white text-ink placeholder:text-faint/70 focus-visible:border-accent focus-visible:ring-accent/20";
+const selectTriggerClass =
+  "h-12 w-full rounded-xl border-line bg-white text-ink data-[placeholder]:text-faint/70 focus-visible:border-accent focus-visible:ring-accent/20";
+
+type Status = "idle" | "loading" | "success" | "error";
+
+export function InquiryFormCard({
+  className,
+  title = "Tell us about your project",
+}: {
   className?: string;
   title?: string;
-};
-
-export function InquiryFormCard({ className, title = "Start Your Project" }: InquiryFormCardProps) {
-  const [submitted, setSubmitted] = useState(false);
-  const form = useForm<InquiryFormValues>({
-    resolver: zodResolver(schema),
+}) {
+  const [status, setStatus] = useState<Status>("idle");
+  const form = useForm<InquiryValues>({
+    resolver: zodResolver(inquirySchema),
     defaultValues: {
       fullName: "",
       email: "",
       company: "",
       phone: "",
       projectType: "",
+      budget: "",
       timeline: "",
       description: "",
     },
   });
 
-  const onSubmit = () => {
-    setSubmitted(true);
+  const onSubmit = async (values: InquiryValues) => {
+    setStatus("loading");
+    try {
+      const res = await fetch("/api/inquiry", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(values),
+      });
+      if (!res.ok) throw new Error("Request failed");
+      setStatus("success");
+    } catch {
+      setStatus("error");
+    }
   };
 
-  const handleWhatsApp = () => {
-    const values = form.getValues();
-    window.open(buildWhatsAppURL(values), "_blank");
-  };
+  const openWhatsApp = () => window.open(buildWhatsApp(form.getValues()), "_blank");
 
-  if (submitted) {
+  if (status === "success") {
     return (
-      <div
-        className={cn(
-          "flex items-center justify-center rounded-2xl border border-[#E1E5F2] bg-white p-12 text-center shadow-lg shadow-[#022B3A]/[0.04]",
-          className,
-        )}
-      >
+      <div className={cn("flex items-center justify-center rounded-3xl border border-line bg-white p-10 text-center shadow-card md:p-14", className)}>
         <div>
-          <motion.div
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ type: "spring", stiffness: 200, damping: 15, delay: 0.2 }}
-          >
-            <CheckCircle2 className="mx-auto h-16 w-16 text-[#1F7A8C]" />
+          <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: "spring", stiffness: 200, damping: 15 }}>
+            <CheckCircle2 className="mx-auto h-16 w-16 text-accent-ink" />
           </motion.div>
-          <h2 className="mt-6 text-3xl font-bold text-[#022B3A]">Inquiry Submitted!</h2>
-          <p className="mt-3 text-base text-[#1F7A8C]">
-            Thank you! We&apos;ll review your project and reach out within 24 hours.
+          <h2 className="mt-6 text-2xl font-semibold text-ink">Inquiry received</h2>
+          <p className="mt-3 text-mutedink">
+            Thanks! We&apos;ll review your project and reply within 24 hours. Prefer to talk now?
           </p>
+          <button
+            type="button"
+            onClick={openWhatsApp}
+            className="mt-6 inline-flex h-11 items-center gap-2 rounded-full bg-[#22C55E] px-6 text-sm font-medium text-white transition-colors hover:bg-[#16A34A]"
+          >
+            <MessageCircle className="h-4 w-4" />
+            Continue on WhatsApp
+          </button>
         </div>
       </div>
     );
   }
 
   return (
-    <div
-      className={cn(
-        "rounded-2xl border border-[#E1E5F2] bg-white p-8 shadow-lg shadow-[#022B3A]/[0.04] md:p-10",
-        className,
-      )}
-    >
-      <h2 className="text-2xl font-bold text-[#022B3A]">{title}</h2>
+    <div className={cn("rounded-3xl border border-line bg-white p-7 shadow-card md:p-9", className)}>
+      <h2 className="text-2xl font-semibold tracking-tight text-ink">{title}</h2>
+      <p className="mt-2 text-sm text-mutedink">No obligation. We reply within 24 hours with a clear plan.</p>
 
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="mt-7 space-y-6">
-          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="mt-7 space-y-5">
+          <div className="grid gap-5 sm:grid-cols-2">
             <FormField
+              control={form.control}
               name="fullName"
-              control={form.control}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-sm font-semibold text-[#022B3A]">
-                    Your Name <span className="text-red-400">*</span>
-                  </FormLabel>
+                  <FormLabel className="text-sm font-medium text-ink">Your name <span className="text-accent-ink">*</span></FormLabel>
                   <FormControl>
-                    <Input
-                      placeholder="Full Name"
-                      {...field}
-                      className="h-12 rounded-xl border-[#E1E5F2] bg-[#E1E5F2]/20 text-[#022B3A] placeholder:text-[#1F7A8C]/40 focus:border-[#1F7A8C] focus:ring-[#1F7A8C]/20"
-                    />
+                    <Input placeholder="Jane Doe" className={inputClass} {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
             <FormField
+              control={form.control}
               name="email"
-              control={form.control}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-sm font-semibold text-[#022B3A]">
-                    Email Address <span className="text-red-400">*</span>
-                  </FormLabel>
+                  <FormLabel className="text-sm font-medium text-ink">Email <span className="text-accent-ink">*</span></FormLabel>
                   <FormControl>
-                    <Input
-                      type="email"
-                      placeholder="email address"
-                      {...field}
-                      className="h-12 rounded-xl border-[#E1E5F2] bg-[#E1E5F2]/20 text-[#022B3A] placeholder:text-[#1F7A8C]/40 focus:border-[#1F7A8C] focus:ring-[#1F7A8C]/20"
-                    />
+                    <Input type="email" placeholder="jane@company.com" className={inputClass} {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -145,36 +169,28 @@ export function InquiryFormCard({ className, title = "Start Your Project" }: Inq
             />
           </div>
 
-          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+          <div className="grid gap-5 sm:grid-cols-2">
             <FormField
+              control={form.control}
               name="company"
-              control={form.control}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-sm font-semibold text-[#022B3A]">Company Name</FormLabel>
+                  <FormLabel className="text-sm font-medium text-ink">Company</FormLabel>
                   <FormControl>
-                    <Input
-                      placeholder="Your Company Inc."
-                      {...field}
-                      className="h-12 rounded-xl border-[#E1E5F2] bg-[#E1E5F2]/20 text-[#022B3A] placeholder:text-[#1F7A8C]/40 focus:border-[#1F7A8C] focus:ring-[#1F7A8C]/20"
-                    />
+                    <Input placeholder="Company (optional)" className={inputClass} {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
             <FormField
-              name="phone"
               control={form.control}
+              name="phone"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-sm font-semibold text-[#022B3A]">Phone Number</FormLabel>
+                  <FormLabel className="text-sm font-medium text-ink">Phone</FormLabel>
                   <FormControl>
-                    <Input
-                      placeholder="+977 1234 56789"
-                      {...field}
-                      className="h-12 rounded-xl border-[#E1E5F2] bg-[#E1E5F2]/20 text-[#022B3A] placeholder:text-[#1F7A8C]/40 focus:border-[#1F7A8C] focus:ring-[#1F7A8C]/20"
-                    />
+                    <Input placeholder="+977 …" className={inputClass} {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -182,113 +198,123 @@ export function InquiryFormCard({ className, title = "Start Your Project" }: Inq
             />
           </div>
 
-          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
-            <FormField
-              name="projectType"
-              control={form.control}
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="text-sm font-semibold text-[#022B3A]">
-                    Project Type <span className="text-red-400">*</span>
-                  </FormLabel>
-                  <Select onValueChange={field.onChange} defaultValue={field.value}>
-                    <FormControl>
-                      <SelectTrigger className="h-12 rounded-xl border-[#E1E5F2] bg-[#E1E5F2]/20 text-[#022B3A]">
-                        <SelectValue placeholder="Select project type" />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      <SelectItem value="web-development">Web Development</SelectItem>
-                      <SelectItem value="ecommerce">E-commerce Solutions</SelectItem>
-                      <SelectItem value="video-editing">Video Editing</SelectItem>
-                      <SelectItem value="graphic-design">Graphic Design</SelectItem>
-                      <SelectItem value="digital-marketing">Digital Marketing</SelectItem>
-                      <SelectItem value="custom-software">Custom Software</SelectItem>
-                      <SelectItem value="ui-ux">UI/UX Design</SelectItem>
-                      <SelectItem value="other">Other</SelectItem>
-                    </SelectContent>
-                  </Select>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              name="timeline"
-              control={form.control}
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="text-sm font-semibold text-[#022B3A]">Project Timeline</FormLabel>
-                  <Select onValueChange={field.onChange} defaultValue={field.value}>
-                    <FormControl>
-                      <SelectTrigger className="h-12 rounded-xl border-[#E1E5F2] bg-[#E1E5F2]/20 text-[#022B3A]">
-                        <SelectValue placeholder="Select timeline" />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      <SelectItem value="asap">ASAP</SelectItem>
-                      <SelectItem value="1-2-weeks">1-2 weeks</SelectItem>
-                      <SelectItem value="1-month">1 month</SelectItem>
-                      <SelectItem value="2-3-months">2-3 months</SelectItem>
-                      <SelectItem value="3-6-months">3-6 months</SelectItem>
-                      <SelectItem value="6-plus-months">6+ months</SelectItem>
-                      <SelectItem value="flexible">Flexible</SelectItem>
-                    </SelectContent>
-                  </Select>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+          <div className="grid gap-5 sm:grid-cols-3">
+            <SelectField form={form} name="projectType" label="Project type" required placeholder="Select" options={projectTypes} triggerClass={selectTriggerClass} />
+            <SelectField form={form} name="budget" label="Budget" placeholder="Select" options={budgets} triggerClass={selectTriggerClass} />
+            <SelectField form={form} name="timeline" label="Timeline" placeholder="Select" options={timelines} triggerClass={selectTriggerClass} />
           </div>
 
           <FormField
-            name="description"
             control={form.control}
+            name="description"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="text-sm font-semibold text-[#022B3A]">
-                  Project Description <span className="text-red-400">*</span>
-                </FormLabel>
+                <FormLabel className="text-sm font-medium text-ink">What are you building? <span className="text-accent-ink">*</span></FormLabel>
                 <FormControl>
                   <Textarea
                     rows={5}
-                    placeholder="Describe your project in detail...  • What problem are you trying to solve? • Who is your target audience? • Do you have any specific technologies in mind? • Are there any existing designs or references? • What are your key requirements and features?"
+                    placeholder="The problem you're solving, who it's for, and any must-have features or references."
+                    className={cn(inputClass, "h-auto py-3")}
                     {...field}
-                    className="rounded-xl border-[#E1E5F2] bg-[#E1E5F2]/20 text-[#022B3A] placeholder:text-[#1F7A8C]/40 focus:border-[#1F7A8C] focus:ring-[#1F7A8C]/20"
                   />
                 </FormControl>
-                <p className="mt-1.5 text-xs text-[#1F7A8C]/60">
-                  The more details you provide, the better we can understand your needs.
-                </p>
                 <FormMessage />
               </FormItem>
             )}
           />
 
-          <div className="flex flex-col gap-4 pt-2 sm:flex-row">
-            <Button
+          {status === "error" && (
+            <div className="flex items-start gap-2.5 rounded-xl border border-red-200 bg-red-50 p-3.5 text-sm text-red-700">
+              <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
+              <span>
+                Something went wrong sending your inquiry. Please try again, or{" "}
+                <button type="button" onClick={openWhatsApp} className="font-medium underline">
+                  reach us on WhatsApp
+                </button>
+                .
+              </span>
+            </div>
+          )}
+
+          <div className="flex flex-col gap-3 pt-1 sm:flex-row">
+            <button
               type="submit"
-              className="h-12 flex-1 rounded-xl bg-[#022B3A] px-8 text-sm font-semibold text-white hover:bg-[#1F7A8C]"
+              disabled={status === "loading"}
+              className="inline-flex h-12 flex-1 items-center justify-center gap-2 rounded-full bg-ink px-6 text-sm font-medium text-white transition-all hover:bg-ink-600 disabled:opacity-70"
             >
-              Submit Project Inquiry
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
-            <Button
+              {status === "loading" ? (
+                <>
+                  <Loader2 className="h-4 w-4 animate-spin" /> Sending…
+                </>
+              ) : (
+                <>
+                  Send inquiry <ArrowRight className="h-4 w-4" />
+                </>
+              )}
+            </button>
+            <button
               type="button"
-              onClick={handleWhatsApp}
-              className="h-12 flex-1 rounded-xl bg-green-500 px-8 text-sm font-semibold text-white hover:bg-green-600"
+              onClick={openWhatsApp}
+              className="inline-flex h-12 flex-1 items-center justify-center gap-2 rounded-full bg-[#22C55E] px-6 text-sm font-medium text-white transition-colors hover:bg-[#16A34A]"
             >
-              <MessageCircle className="mr-2 h-4 w-4" />
-              Send via WhatsApp
-            </Button>
+              <MessageCircle className="h-4 w-4" />
+              WhatsApp instead
+            </button>
           </div>
 
-          <p className="text-center text-xs text-[#1F7A8C]/50">
-            By submitting this form, you agree to our <span className="text-[#1F7A8C] underline">Terms of Service</span>{" "}
-            and <span className="text-[#1F7A8C] underline">Privacy Policy</span>.
-            We&apos;ll never share your information with third parties.
+          <p className="text-center text-xs text-faint">
+            By submitting you agree to our{" "}
+            <a href="/privacy" className="underline hover:text-mutedink">Privacy Policy</a>. We never share your details.
           </p>
         </form>
       </Form>
     </div>
+  );
+}
+
+function SelectField({
+  form,
+  name,
+  label,
+  required,
+  placeholder,
+  options,
+  triggerClass,
+}: {
+  form: UseFormReturn<InquiryValues>;
+  name: "projectType" | "budget" | "timeline";
+  label: string;
+  required?: boolean;
+  placeholder: string;
+  options: { value: string; label: string }[];
+  triggerClass: string;
+}) {
+  return (
+    <FormField
+      control={form.control}
+      name={name}
+      render={({ field }) => (
+        <FormItem>
+          <FormLabel className="text-sm font-medium text-ink">
+            {label} {required && <span className="text-accent-ink">*</span>}
+          </FormLabel>
+          <Select onValueChange={field.onChange} value={field.value || undefined}>
+            <FormControl>
+              <SelectTrigger className={triggerClass}>
+                <SelectValue placeholder={placeholder} />
+              </SelectTrigger>
+            </FormControl>
+            <SelectContent>
+              {options.map((o) => (
+                <SelectItem key={o.value} value={o.value}>
+                  {o.label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+          <FormMessage />
+        </FormItem>
+      )}
+    />
   );
 }

@@ -39,3 +39,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# large media hosted on Cloudinary (kept locally, not committed)
+public/hero-bg.mp4

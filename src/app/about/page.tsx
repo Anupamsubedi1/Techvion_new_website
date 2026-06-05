@@ -3,7 +3,9 @@ import { AboutPage } from "./about-page";
 
 export const metadata: Metadata = {
   title: "About",
-  description: "Learn about Techvion, our mission, values, and growth timeline.",
+  description:
+    "Techvion is a remote-first product studio founded in 2024, known for disciplined engineering, transparent delivery and long-term client success.",
+  alternates: { canonical: "/about" },
 };
 
 export default function About() {

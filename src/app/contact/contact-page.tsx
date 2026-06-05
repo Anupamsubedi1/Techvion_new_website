@@ -1,143 +1,125 @@
-"use client";
-import { motion } from "framer-motion";
-import Link from "next/link";
-import { Phone, Mail, MapPin, ArrowRight } from "lucide-react";
+import { Mail, Phone, MapPin, MessageCircle, CalendarClock, Check, ArrowRight } from "lucide-react";
+import { Container, SectionHeading } from "@/components/site/layout";
+import { Reveal } from "@/components/site/reveal";
+import { PageHero } from "@/components/site/page-hero";
 import { InquiryFormCard } from "@/components/inquiry-form-card";
+import { FAQ } from "@/components/sections/faq";
+import { site, whatsappLink } from "@/content/site";
+import { generalFaqs } from "@/content/faqs";
 
-const info = [
-  {
-    icon: Phone,
-    label: "Phone / WhatsApp",
-    value: "+977 9843012542",
-    href: "tel:+9779843012542",
-  },
-  {
-    icon: Mail,
-    label: "Email",
-    value: "techviontechnology@gmail.com",
-    href: "mailto:techviontechnology@gmail.com",
-  },
-  {
-    icon: MapPin,
-    label: "Location",
-    value: "Kathmandu, Nepal (Remote-first)",
-    href: "#",
-  },
+const reasons = [
+  "Senior, full-stack team",
+  "Transparent weekly updates",
+  "24-hour response, guaranteed",
+  "You own all the code",
 ];
 
 export function ContactPage() {
+  const calendly = process.env.NEXT_PUBLIC_CALENDLY_URL;
+
+  const contactRows = [
+    { icon: Mail, label: "Email", value: site.email, href: `mailto:${site.email}` },
+    { icon: Phone, label: "Phone", value: site.phoneDisplay, href: site.phoneHref },
+    { icon: MapPin, label: "Location", value: site.location.full, href: undefined },
+    { icon: MessageCircle, label: "WhatsApp", value: "Chat with us instantly", href: whatsappLink() },
+  ];
+
   return (
-    <div className="bg-white">
-      {/* Hero */}
-      <section className="bg-white pt-28 pb-16 px-6">
-        <div className="mx-auto max-w-4xl text-center">
-          <motion.span
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="text-sm font-semibold uppercase tracking-widest text-[#1F7A8C]"
-          >
-            Get in Touch
-          </motion.span>
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="mt-2 text-4xl font-bold text-[#022B3A] md:text-5xl"
-          >
-            Let&apos;s Build Something&nbsp;Together
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="mx-auto mt-3 max-w-xl text-base text-[#1F7A8C]"
-          >
-            Reach out for project inquiries, partnerships, or general questions. We respond within 24 hours.
-          </motion.p>
-        </div>
-      </section>
+    <>
+      <PageHero
+        align="center"
+        eyebrow="Contact"
+        title="Let's build something together"
+        description="Tell us about your project, ask a question, or just say hi. One team, one inbox, and a reply within 24 hours."
+      />
 
-      {/* Contact Cards */}
-      <section className="px-6 py-16">
-        <div className="mx-auto max-w-5xl">
-          <div className="grid gap-5 md:grid-cols-3">
-            {info.map((item, i) => (
-              <motion.a
-                key={item.label}
-                href={item.href}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.08, duration: 0.45 }}
-                whileHover={{ y: -3 }}
-                className="group flex flex-col items-center rounded-xl border border-[#E1E5F2] bg-white p-6 text-center transition-shadow hover:shadow-md"
-              >
-                <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-[#E1E5F2] transition-colors group-hover:bg-[#022B3A]">
-                  <item.icon className="h-5 w-5 text-[#1F7A8C] transition-colors group-hover:text-white" />
-                </div>
-                <div className="mt-3 text-xs font-semibold uppercase tracking-widest text-[#1F7A8C]">
-                  {item.label}
-                </div>
-                <div className="mt-1 text-sm font-semibold text-[#022B3A]">{item.value}</div>
-              </motion.a>
-            ))}
-          </div>
-        </div>
-      </section>
+      <section className="bg-surface py-16 md:py-24">
+        <Container>
+          <div className="grid gap-8 lg:grid-cols-[380px_1fr] lg:items-start">
+            {/* Left: contact + book-a-call */}
+            <Reveal className="flex flex-col gap-6">
+              <div className="rounded-3xl border border-line bg-white p-7 shadow-soft">
+                <h2 className="text-lg font-semibold text-ink">Contact details</h2>
+                <ul className="mt-6 space-y-5">
+                  {contactRows.map((r) => {
+                    const Row = (
+                      <>
+                        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-accent-soft text-accent-ink">
+                          <r.icon className="h-5 w-5" />
+                        </span>
+                        <span>
+                          <span className="block text-xs font-medium uppercase tracking-wide text-faint">{r.label}</span>
+                          <span className="mt-0.5 block text-sm text-ink">{r.value}</span>
+                        </span>
+                      </>
+                    );
+                    return (
+                      <li key={r.label}>
+                        {r.href ? (
+                          <a
+                            href={r.href}
+                            target={r.href.startsWith("http") ? "_blank" : undefined}
+                            rel={r.href.startsWith("http") ? "noreferrer" : undefined}
+                            className="flex items-center gap-3.5 transition-opacity hover:opacity-80"
+                          >
+                            {Row}
+                          </a>
+                        ) : (
+                          <div className="flex items-center gap-3.5">{Row}</div>
+                        )}
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
 
-      {/* Inquiry + Form */}
-      <section className="bg-[#E1E5F2]/40 px-6 py-16">
-        <div className="mx-auto max-w-5xl">
-          <div className="grid gap-10 md:grid-cols-[3fr_7fr]">
-            {/* Inquiry CTA */}
-            <motion.div
-              initial={{ opacity: 0, x: -24 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="flex flex-col justify-center"
-            >
-              <span className="text-sm font-semibold uppercase tracking-widest text-[#1F7A8C]">Start a Conversation</span>
-              <h2 className="mt-3 text-2xl font-extrabold text-[#022B3A] md:text-3xl">Have a project in mind?</h2>
-              <p className="mt-3 max-w-md text-[#1F7A8C]">
-                Fill out our inquiry form and we&apos;ll schedule a discovery call within 24 hours.
-              </p>
-              <div className="mt-6 flex flex-wrap gap-3">
-                <Link href="/inquiry">
-                  <motion.span
-                    whileHover={{ scale: 1.04 }}
-                    whileTap={{ scale: 0.97 }}
-                    className="inline-flex cursor-pointer items-center gap-2 rounded-xl bg-[#022B3A] px-6 py-3 text-sm font-bold text-white transition-colors hover:bg-[#1F7A8C]"
-                  >
-                    Send Inquiry <ArrowRight className="h-4 w-4" />
-                  </motion.span>
-                </Link>
-                <a href="mailto:techviontechnology@gmail.com">
-                  <motion.span
-                    whileHover={{ scale: 1.04 }}
-                    whileTap={{ scale: 0.97 }}
-                    className="inline-flex cursor-pointer items-center gap-2 rounded-xl border border-[#BFDBF7] bg-[#E1E5F2] px-6 py-3 text-sm font-bold text-[#022B3A] transition-colors hover:bg-[#BFDBF7]"
-                  >
-                    Email Us
-                  </motion.span>
+              {/* Book a call (Calendly placeholder) */}
+              <div className="rounded-3xl border border-line bg-night p-7 text-white shadow-soft">
+                <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-white/10 text-accent-bright">
+                  <CalendarClock className="h-5 w-5" />
+                </span>
+                <h2 className="mt-5 text-lg font-semibold">Prefer to talk it through?</h2>
+                <p className="mt-2 text-sm leading-relaxed text-white/60">
+                  Book a free 20-minute intro call. No pitch, just a conversation about what you&apos;re building.
+                </p>
+                <a
+                  href={calendly ?? whatsappLink("Hi Techvion! I'd like to book an intro call.")}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="mt-5 inline-flex h-11 items-center gap-2 rounded-full bg-accent px-5 text-sm font-medium text-white transition-colors hover:bg-accent-ink"
+                >
+                  Book a call
+                  <ArrowRight className="h-4 w-4" />
                 </a>
               </div>
-            </motion.div>
 
-            {/* Inquiry Form */}
-            <motion.div
-              initial={{ opacity: 0, x: 24 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="rounded-2xl"
-            >
-              <InquiryFormCard className="border-[#BFDBF7] p-8 shadow-[0_4px_24px_rgba(2,43,58,0.07)] md:p-8" />
-            </motion.div>
+              <div className="rounded-3xl border border-line bg-white p-7 shadow-soft">
+                <h2 className="text-base font-semibold text-ink">Why teams choose us</h2>
+                <ul className="mt-4 space-y-3">
+                  {reasons.map((r) => (
+                    <li key={r} className="flex items-center gap-2.5 text-sm text-mutedink">
+                      <Check className="h-4 w-4 shrink-0 text-accent-ink" />
+                      {r}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </Reveal>
+
+            {/* Right: form */}
+            <Reveal delay={0.1} id="inquiry-form">
+              <InquiryFormCard />
+            </Reveal>
           </div>
-        </div>
+        </Container>
       </section>
-    </div>
+
+      <section id="faq" className="scroll-mt-24 bg-surface py-20 md:py-28">
+        <Container size="narrow">
+          <SectionHeading align="center" eyebrow="FAQ" title="Questions, answered" className="mb-12" />
+          <FAQ items={generalFaqs} />
+        </Container>
+      </section>
+    </>
   );
 }
