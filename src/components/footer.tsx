@@ -1,123 +1,85 @@
-"use client";
 import Link from "next/link";
-import { motion } from "framer-motion";
-import { Instagram, Linkedin, Twitter, Mail, Phone } from "lucide-react";
+import { Linkedin, Github, Instagram, Mail, Phone, MapPin } from "lucide-react";
+import { Container } from "@/components/site/layout";
+import { Logo } from "@/components/site/logo";
+import { site, footerNav } from "@/content/site";
 
-const navLinks = [
-  { href: "/services", label: "Services" },
-  { href: "/projects", label: "Projects" },
-  { href: "/technology", label: "Technology" },
-  { href: "/about", label: "About" },
-  { href: "/contact", label: "Contact" },
-];
-
-const services = [
-  "Custom Web Development",
-  "E-commerce Solutions",
-  "Video & Graphic Design",
-  "Digital Marketing",
-  "SEO Copywriting",
-  "Domain & Hosting",
-];
+const socialIcons = { linkedin: Linkedin, github: Github, instagram: Instagram } as const;
 
 export function Footer() {
   return (
-    <footer className="border-t border-[#E1E5F2] bg-[#022B3A]">
-      <div className="mx-auto max-w-6xl px-6 py-14">
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
+    <footer className="relative overflow-hidden border-t border-white/10 bg-night text-white">
+      <div className="pointer-events-none absolute inset-0 grid-overlay" aria-hidden="true" />
+      <Container className="relative py-16">
+        <div className="grid gap-12 lg:grid-cols-[1.5fr_1fr_1fr_1fr]">
           {/* Brand */}
-          <div className="lg:col-span-1">
-            <Link href="/" className="text-xl font-bold text-white">
-              Techvion
-            </Link>
-            <p className="mt-2 text-sm leading-relaxed text-white/50">
-              Building scalable, high-performance digital solutions for modern businesses worldwide.
+          <div>
+            <Logo />
+            <p className="mt-4 max-w-xs text-sm leading-relaxed text-white/55">
+              {site.description}
             </p>
-            <div className="mt-4 flex items-center gap-2 text-sm text-white/50">
-              <Phone className="h-3.5 w-3.5 text-[#BFDBF7]" />
-              <span>+977 9843012542</span>
-            </div>
-            <div className="mt-1.5 flex items-center gap-2 text-sm text-white/50">
-              <Mail className="h-3.5 w-3.5 text-[#BFDBF7]" />
-              <a href="mailto:techviontechnology@gmail.com" className="transition-colors hover:text-white">
-                techviontechnology@gmail.com
+            <div className="mt-6 space-y-2.5 text-sm">
+              <a href={site.phoneHref} className="flex items-center gap-2.5 text-white/55 transition-colors hover:text-white">
+                <Phone className="h-4 w-4 text-accent-bright" />
+                {site.phoneDisplay}
               </a>
+              <a href={`mailto:${site.email}`} className="flex items-center gap-2.5 text-white/55 transition-colors hover:text-white">
+                <Mail className="h-4 w-4 text-accent-bright" />
+                {site.email}
+              </a>
+              <p className="flex items-center gap-2.5 text-white/55">
+                <MapPin className="h-4 w-4 text-accent-bright" />
+                {site.location.full}
+              </p>
             </div>
-            <div className="mt-4 flex gap-2">
-              {[
-                { icon: Linkedin, href: "#" },
-                { icon: Twitter, href: "#" },
-                { icon: Instagram, href: "#" },
-              ].map(({ icon: Icon, href }, i) => (
-                <motion.a
-                  key={i}
-                  href={href}
-                  whileHover={{ scale: 1.1 }}
-                  className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/10 bg-white/5 text-white/50 transition-colors hover:border-[#BFDBF7] hover:text-white"
-                >
-                  <Icon className="h-3.5 w-3.5" />
-                </motion.a>
-              ))}
-            </div>
-          </div>
-
-          {/* Quick Links */}
-          <div>
-            <div className="mb-4 text-xs font-semibold uppercase tracking-widest text-[#BFDBF7]">
-              Quick Links
-            </div>
-            <ul className="space-y-2.5">
-              {navLinks.map((l) => (
-                <li key={l.href}>
-                  <Link
-                    href={l.href}
-                    className="text-sm text-white/50 transition-colors hover:text-white"
+            <div className="mt-6 flex gap-2.5">
+              {site.social.map((s) => {
+                const SocialIcon = socialIcons[s.icon as keyof typeof socialIcons];
+                return (
+                  <a
+                    key={s.label}
+                    href={s.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label={s.label}
+                    className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white/55 transition-colors hover:border-accent-bright/40 hover:text-white"
                   >
-                    {l.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+                    <SocialIcon className="h-4 w-4" />
+                  </a>
+                );
+              })}
+            </div>
           </div>
 
-          {/* Services */}
-          <div>
-            <div className="mb-4 text-xs font-semibold uppercase tracking-widest text-[#BFDBF7]">
-              Services
+          {/* Nav columns */}
+          {Object.entries(footerNav).map(([heading, links]) => (
+            <div key={heading}>
+              <p className="label-mono text-white/40">{heading}</p>
+              <ul className="mt-4 space-y-3">
+                {links.map((l) => (
+                  <li key={l.href + l.label}>
+                    <Link
+                      href={l.href}
+                      className="text-sm text-white/55 transition-colors hover:text-white"
+                    >
+                      {l.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
             </div>
-            <ul className="space-y-2.5">
-              {services.map((s) => (
-                <li key={s} className="text-sm text-white/50">{s}</li>
-              ))}
-            </ul>
-          </div>
-
-          {/* CTA */}
-          <div>
-            <div className="mb-4 text-xs font-semibold uppercase tracking-widest text-[#BFDBF7]">
-              Start a Project
-            </div>
-            <p className="text-sm leading-relaxed text-white/50">
-              Have a project in mind? Let&apos;s talk about bringing your vision to life.
-            </p>
-            <Link href="/inquiry">
-              <motion.span
-                whileHover={{ scale: 1.03 }}
-                whileTap={{ scale: 0.97 }}
-                className="mt-4 inline-flex cursor-pointer items-center gap-1.5 rounded-lg bg-white px-4 py-2 text-sm font-semibold text-[#022B3A] transition-colors hover:bg-[#BFDBF7]"
-              >
-                Send Inquiry
-              </motion.span>
-            </Link>
-          </div>
+          ))}
         </div>
 
-        <div className="mt-12 border-t border-white/10 pt-6 text-center text-xs text-white/30">
-          &copy; {new Date().getFullYear()} Techvion. All rights reserved.
+        <div className="mt-14 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-7 text-xs text-white/40 sm:flex-row">
+          <p>© {new Date().getFullYear()} {site.legalName}. All rights reserved.</p>
+          <div className="flex items-center gap-6">
+            <Link href="/privacy" className="transition-colors hover:text-white">Privacy</Link>
+            <Link href="/terms" className="transition-colors hover:text-white">Terms</Link>
+            <a href={`mailto:${site.email}`} className="transition-colors hover:text-white">Contact</a>
+          </div>
         </div>
-      </div>
+      </Container>
     </footer>
   );
 }
-
-
