@@ -5,7 +5,7 @@ import { metrics } from "@/content/metrics";
 
 export function Metrics({ withHeading = true }: { withHeading?: boolean }) {
   return (
-    <section className="bg-white py-20 md:py-28">
+    <section className="bg-white py-10 md:py-14">
       <Container>
         {withHeading && (
           <SectionHeading

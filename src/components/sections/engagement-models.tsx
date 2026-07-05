@@ -6,7 +6,7 @@ import { engagementModels } from "@/content/about";
 
 export function EngagementModels({ tone = "white" }: { tone?: "white" | "surface" }) {
   return (
-    <section className={tone === "surface" ? "bg-surface py-20 md:py-28" : "bg-white py-20 md:py-28"}>
+    <section className={tone === "surface" ? "bg-surface py-10 md:py-14" : "bg-white py-10 md:py-14"}>
       <Container>
         <SectionHeading
           align="center"

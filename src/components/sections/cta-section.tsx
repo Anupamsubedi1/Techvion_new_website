@@ -3,6 +3,7 @@ import { CTAButton } from "@/components/site/cta-button";
 import { Reveal } from "@/components/site/reveal";
 
 type CTASectionProps = {
+  // `eyebrow` is accepted for call-site compatibility but no longer rendered.
   eyebrow?: string;
   title?: React.ReactNode;
   description?: string;
@@ -12,22 +13,17 @@ type CTASectionProps = {
 
 /** Dark, high-contrast conversion band used to close every page. */
 export function CTASection({
-  eyebrow = "Let's build together",
   title = "Have a project in mind?",
   description = "Tell us what you're building. We'll reply within 24 hours with a clear, honest plan. No pressure, no jargon.",
   primary = { label: "Start a project", href: "/contact" },
   secondary = { label: "See our work", href: "/projects" },
 }: CTASectionProps) {
   return (
-    <section className="relative overflow-hidden bg-night py-20 text-white md:py-28">
+    <section className="relative overflow-hidden bg-night py-10 text-white md:py-14">
       <div className="pointer-events-none absolute inset-0 grid-overlay" aria-hidden="true" />
       <Container className="relative">
         <Reveal className="mx-auto flex max-w-2xl flex-col items-center text-center">
-          <span className="label-mono inline-flex items-center gap-2 text-accent-bright">
-            <span className="h-1 w-1 rounded-full bg-accent-bright" />
-            {eyebrow}
-          </span>
-          <h2 className="mt-5 text-balance text-3xl font-semibold leading-[1.08] sm:text-4xl md:text-5xl">
+          <h2 className="text-balance text-3xl font-semibold leading-[1.08] sm:text-4xl md:text-5xl">
             {title}
           </h2>
           <p className="mt-5 max-w-xl text-base leading-relaxed text-white/65 md:text-lg">

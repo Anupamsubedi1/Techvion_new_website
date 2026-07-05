@@ -114,7 +114,7 @@ export function ContactPage() {
         </Container>
       </section>
 
-      <section id="faq" className="scroll-mt-24 bg-surface py-20 md:py-28">
+      <section id="faq" className="scroll-mt-24 bg-surface py-10 md:py-14">
         <Container size="narrow">
           <SectionHeading align="center" eyebrow="FAQ" title="Questions, answered" className="mb-12" />
           <FAQ items={generalFaqs} />

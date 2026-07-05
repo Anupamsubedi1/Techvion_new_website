@@ -33,7 +33,7 @@ export function ProjectsPage() {
         }
       />
 
-      <section className="bg-surface py-16 md:py-20">
+      <section className="bg-surface py-8 md:py-10">
         <Container>
           {/* View toggle */}
           <div className="flex justify-center">

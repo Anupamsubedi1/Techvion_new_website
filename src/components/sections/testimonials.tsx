@@ -11,7 +11,7 @@ export function Testimonials({
 }) {
   const items = limit ? allTestimonials.slice(0, limit) : allTestimonials;
   return (
-    <section className={tone === "surface" ? "bg-surface py-20 md:py-28" : "bg-white py-20 md:py-28"}>
+    <section className={tone === "surface" ? "bg-surface py-10 md:py-14" : "bg-white py-10 md:py-14"}>
       <Container>
         <SectionHeading
           align="center"

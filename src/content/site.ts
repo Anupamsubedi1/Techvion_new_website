@@ -52,6 +52,7 @@ export const footerNav = {
     { href: "/services/custom-software", label: "Custom Software" },
     { href: "/services/web-ecommerce", label: "Web & E-commerce" },
     { href: "/services/digital-marketing", label: "Digital Marketing" },
+    { href: "/services/data-science-ai", label: "Data Science & AI" },
     { href: "/services/maintenance-support", label: "Maintenance & Support" },
   ],
   Resources: [

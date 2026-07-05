@@ -21,7 +21,7 @@ export type ServiceDetail = ServiceSummary & {
   related: string[];
 };
 
-/** The four service pillars: one taxonomy across the whole site. */
+/** The core service pillars: one taxonomy across the whole site. */
 export const serviceList: ServiceSummary[] = [
   {
     slug: "custom-software",
@@ -49,6 +49,20 @@ export const serviceList: ServiceSummary[] = [
     summary:
       "Technical SEO, content, and paid campaigns wired to analytics, so every rupee and dollar is accountable to a number.",
     bullets: ["Technical & on-page SEO", "Paid search & social", "Transparent reporting"],
+  },
+  {
+    slug: "data-science-ai",
+    icon: "cpu",
+    name: "Data Science & AI",
+    tagline: "Insights, predictions & intelligent automation",
+    summary:
+      "Transform raw data into actionable insights through analytics, machine learning, forecasting, and AI-powered solutions built around your business goals.",
+    bullets: [
+      "Predictive analytics & forecasting",
+      "Machine learning models",
+      "Business intelligence dashboards",
+      "NLP & AI automation",
+    ],
   },
   {
     slug: "maintenance-support",
@@ -117,7 +131,7 @@ export const services: Record<string, ServiceDetail> = {
       { q: "Can you work with our existing team?", a: "Absolutely. We integrate into your repo, standards and rituals, or run end-to-end, whichever fits." },
     ],
     capabilities: ["Next.js", "React", "TypeScript", "Node.js", "PostgreSQL", "REST & GraphQL", "AWS / Vercel"],
-    related: ["web-ecommerce", "maintenance-support"],
+    related: ["web-ecommerce", "data-science-ai"],
   },
   "web-ecommerce": {
     slug: "web-ecommerce",
@@ -195,7 +209,7 @@ export const services: Record<string, ServiceDetail> = {
       { q: "Do you require long contracts?", a: "No. We work in clear monthly engagements you can adjust as results come in." },
     ],
     capabilities: ["Technical SEO", "Google Ads", "Meta Ads", "GA4", "Content", "CRO"],
-    related: ["web-ecommerce", "custom-software"],
+    related: ["data-science-ai", "web-ecommerce"],
   },
   "maintenance-support": {
     slug: "maintenance-support",
@@ -235,6 +249,50 @@ export const services: Record<string, ServiceDetail> = {
     ],
     capabilities: ["Monitoring", "CI/CD", "Security", "Backups", "Performance", "On-call"],
     related: ["custom-software", "web-ecommerce"],
+  },
+  "data-science-ai": {
+    slug: "data-science-ai",
+    icon: "cpu",
+    name: "Data Science & AI",
+    tagline: "Insights, predictions & intelligent automation",
+    eyebrow: "Data Science & AI",
+    title: "Turn your data into decisions and automation",
+    summary:
+      "Transform raw data into actionable insights through analytics, machine learning, forecasting, and AI-powered solutions built around your business goals.",
+    intro:
+      "Most businesses sit on data they never use. We turn it into an advantage: dashboards that surface what matters, models that predict what's next, and AI that automates the busywork, all built around your goals, not a demo.",
+    bullets: [
+      "Predictive analytics & forecasting",
+      "Machine learning models",
+      "Business intelligence dashboards",
+      "NLP & AI automation",
+    ],
+    proof: [
+      { value: "ML", label: "Custom models on your data" },
+      { value: "Live", label: "Dashboards on real data" },
+      { value: "ROI", label: "Tied to business outcomes" },
+    ],
+    deliverables: [
+      { icon: "trending", title: "Predictive analytics & forecasting", desc: "Demand, revenue and churn models so you can plan on data instead of gut feel." },
+      { icon: "cpu", title: "Machine learning models", desc: "Custom classification, recommendation and scoring models trained on your own data." },
+      { icon: "chart", title: "BI dashboards", desc: "Live business-intelligence dashboards that turn scattered data into one clear view." },
+      { icon: "message", title: "NLP & language AI", desc: "Chatbots, document parsing and sentiment analysis powered by modern LLMs." },
+      { icon: "workflow", title: "AI-powered automation", desc: "Automate repetitive decisions and workflows so your team focuses on higher-value work." },
+      { icon: "database", title: "Data pipelines & engineering", desc: "Reliable pipelines that collect, clean and store data ready for analysis." },
+    ],
+    process: [
+      { title: "Discover", desc: "Understand your goals, data sources and the decisions you want to improve." },
+      { title: "Prepare", desc: "Collect, clean and structure data into a reliable foundation." },
+      { title: "Model", desc: "Build, train and validate models or dashboards against real outcomes." },
+      { title: "Deploy & monitor", desc: "Ship to production, track accuracy and refine as your data grows." },
+    ],
+    faqs: [
+      { q: "Do we need a lot of data to start?", a: "Not always. We assess what you already have; many early wins come from analytics and dashboards on existing data, with ML layered in as the dataset grows." },
+      { q: "Can you add AI to our existing product?", a: "Yes. We integrate models, LLM features and automation into your current app and workflows, rather than making you rip and replace." },
+      { q: "Which AI and ML tools do you use?", a: "Proven tooling, Python, scikit-learn, PyTorch and modern LLM APIs, chosen to fit the problem, your budget and your data-privacy needs." },
+    ],
+    capabilities: ["Python", "Machine Learning", "LLMs & NLP", "Forecasting", "BI Dashboards", "Data Pipelines"],
+    related: ["custom-software", "digital-marketing"],
   },
 };
 

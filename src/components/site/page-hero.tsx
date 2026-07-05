@@ -1,9 +1,8 @@
-import { Container, Eyebrow } from "@/components/site/layout";
+import { Container } from "@/components/site/layout";
 import { Reveal } from "@/components/site/reveal";
 import { cn } from "@/lib/utils";
 
 export function PageHero({
-  eyebrow,
   title,
   description,
   tone = "light",
@@ -11,7 +10,8 @@ export function PageHero({
   actions,
   children,
 }: {
-  eyebrow: string;
+  // `eyebrow` is accepted for call-site compatibility but no longer rendered.
+  eyebrow?: string;
   title: React.ReactNode;
   description?: React.ReactNode;
   tone?: "light" | "night";
@@ -39,10 +39,9 @@ export function PageHero({
       )}
       <Container className={cn("relative pb-14 pt-32 md:pb-20 md:pt-40", align === "center" && "text-center")}>
         <Reveal className={cn("max-w-3xl", align === "center" && "mx-auto")}>
-          <Eyebrow onDark={onDark}>{eyebrow}</Eyebrow>
           <h1
             className={cn(
-              "mt-5 text-balance text-4xl font-semibold leading-[1.04] tracking-tight sm:text-5xl md:text-6xl",
+              "text-balance text-4xl font-semibold leading-[1.04] tracking-tight sm:text-5xl md:text-6xl",
               onDark ? "text-white" : "text-ink",
             )}
           >

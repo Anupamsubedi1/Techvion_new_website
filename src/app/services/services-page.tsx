@@ -29,7 +29,7 @@ export function ServicesPage() {
       />
 
       {/* Service pillars */}
-      <section className="bg-surface py-20 md:py-28">
+      <section className="bg-surface py-10 md:py-14">
         <Container>
           <Stagger className="grid gap-5 md:grid-cols-2">
             {serviceList.map((s) => (
@@ -42,12 +42,12 @@ export function ServicesPage() {
       </section>
 
       {/* Full-stack capabilities */}
-      <section className="bg-white py-20 md:py-28">
+      <section className="bg-white py-10 md:py-14">
         <Container>
           <SectionHeading
             eyebrow="Capabilities"
             title="A full-stack team, end to end"
-            description="Beyond the four pillars, here's the complete range we bring to a build, so you rarely need a second vendor."
+            description="Beyond the core pillars, here's the complete range we bring to a build, so you rarely need a second vendor."
             className="mb-14"
           />
           <Stagger className="grid gap-px overflow-hidden rounded-3xl border border-line bg-line sm:grid-cols-2 lg:grid-cols-4">

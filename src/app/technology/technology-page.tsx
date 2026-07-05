@@ -69,7 +69,7 @@ export function TechnologyPage() {
       />
 
       {/* Principles */}
-      <section className="bg-white py-20 md:py-28">
+      <section className="bg-white py-10 md:py-14">
         <Container>
           <SectionHeading
             eyebrow="Principles"
@@ -96,7 +96,7 @@ export function TechnologyPage() {
       </section>
 
       {/* Stack */}
-      <section className="bg-surface py-20 md:py-28">
+      <section className="bg-surface py-10 md:py-14">
         <Container>
           <SectionHeading
             eyebrow="The stack"
@@ -131,7 +131,7 @@ export function TechnologyPage() {
       </section>
 
       {/* Pillars */}
-      <section className="bg-white py-20 md:py-28">
+      <section className="bg-white py-10 md:py-14">
         <Container>
           <SectionHeading
             eyebrow="What makes a release safe"

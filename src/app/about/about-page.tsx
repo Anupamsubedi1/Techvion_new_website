@@ -1,4 +1,4 @@
-import { Container, SectionHeading, Eyebrow } from "@/components/site/layout";
+import { Container, SectionHeading } from "@/components/site/layout";
 import { Reveal, Stagger, RevealItem } from "@/components/site/reveal";
 import { PageHero } from "@/components/site/page-hero";
 import { CTAButton } from "@/components/site/cta-button";
@@ -37,12 +37,11 @@ export function AboutPage() {
       />
 
       {/* Story */}
-      <section className="bg-white py-20 md:py-28">
+      <section className="bg-white py-10 md:py-14">
         <Container>
           <div className="grid gap-12 lg:grid-cols-[1.3fr_1fr] lg:items-center">
             <Reveal>
-              <Eyebrow>{story.eyebrow}</Eyebrow>
-              <h2 className="mt-4 text-balance text-3xl font-semibold leading-[1.1] text-ink md:text-4xl">
+              <h2 className="text-balance text-3xl font-semibold leading-[1.1] text-ink md:text-4xl">
                 {story.title}
               </h2>
               {story.paragraphs.map((p) => (
@@ -66,7 +65,7 @@ export function AboutPage() {
       </section>
 
       {/* Values */}
-      <section className="bg-surface py-20 md:py-28">
+      <section className="bg-surface py-10 md:py-14">
         <Container>
           <SectionHeading
             eyebrow="What we believe"
@@ -90,12 +89,11 @@ export function AboutPage() {
       </section>
 
       {/* Disciplines / team */}
-      <section className="bg-white py-20 md:py-28">
+      <section className="bg-white py-10 md:py-14">
         <Container>
           <div className="grid gap-12 lg:grid-cols-[1fr_1.2fr] lg:items-center">
             <Reveal>
-              <Eyebrow>How we're built</Eyebrow>
-              <h2 className="mt-4 text-balance text-3xl font-semibold leading-[1.1] text-ink md:text-4xl">
+              <h2 className="text-balance text-3xl font-semibold leading-[1.1] text-ink md:text-4xl">
                 One cross-functional team, not a chain of hand-offs
               </h2>
               <p className="mt-5 text-[15px] leading-relaxed text-mutedink md:text-base">

@@ -1,12 +1,13 @@
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
-import { Container, SectionHeading, Eyebrow } from "@/components/site/layout";
+import { Container, SectionHeading } from "@/components/site/layout";
 import { Reveal, Stagger, RevealItem } from "@/components/site/reveal";
 import { CTAButton } from "@/components/site/cta-button";
 import { FAQ } from "@/components/sections/faq";
 import { CTASection } from "@/components/sections/cta-section";
 import { Icon } from "@/components/site/icon";
 import { ServiceCard } from "@/components/sections/service-card";
+import { IndustrySolutions } from "@/components/sections/industry-solutions";
 import { services, serviceList } from "@/content/services";
 import { whatsappLink } from "@/content/site";
 
@@ -20,6 +21,10 @@ export function ServiceDetailPage({ slug }: { slug: string }) {
       {/* Hero */}
       <section className="relative isolate overflow-hidden bg-white">
         <div className="pointer-events-none absolute inset-0 grid-overlay-light" aria-hidden="true" />
+        <div
+          className="pointer-events-none absolute -top-24 right-[-8%] h-[420px] w-[620px] rounded-full bg-accent/10 blur-[130px]"
+          aria-hidden="true"
+        />
         <Container className="relative pb-16 pt-32 md:pt-40">
           <Reveal>
             <Link
@@ -33,8 +38,7 @@ export function ServiceDetailPage({ slug }: { slug: string }) {
 
           <div className="mt-8 grid gap-12 lg:grid-cols-[1.4fr_1fr] lg:items-center">
             <Reveal>
-              <Eyebrow>{s.eyebrow}</Eyebrow>
-              <h1 className="mt-5 text-balance text-4xl font-semibold leading-[1.05] tracking-tight text-ink sm:text-5xl">
+              <h1 className="text-balance text-4xl font-semibold leading-[1.05] tracking-tight text-ink sm:text-5xl">
                 {s.title}
               </h1>
               <p className="mt-6 max-w-xl text-base leading-relaxed text-mutedink md:text-lg">
@@ -75,7 +79,7 @@ export function ServiceDetailPage({ slug }: { slug: string }) {
       </section>
 
       {/* Deliverables */}
-      <section className="bg-surface py-20 md:py-28">
+      <section className="bg-surface py-10 md:py-14">
         <Container>
           <SectionHeading
             eyebrow="What's included"
@@ -86,8 +90,8 @@ export function ServiceDetailPage({ slug }: { slug: string }) {
           <Stagger className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
             {s.deliverables.map((d) => (
               <RevealItem key={d.title}>
-                <div className="flex h-full flex-col rounded-2xl border border-line bg-white p-6 shadow-soft">
-                  <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-accent-soft text-accent-ink">
+                <div className="group flex h-full flex-col rounded-2xl border border-line bg-white p-6 shadow-soft transition-all duration-300 hover:-translate-y-1 hover:border-ink-100 hover:shadow-card motion-reduce:transform-none">
+                  <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-accent-soft text-accent-ink transition-transform duration-300 group-hover:scale-105">
                     <Icon name={d.icon} className="h-5 w-5" />
                   </span>
                   <h3 className="mt-5 text-base font-semibold text-ink">{d.title}</h3>
@@ -99,8 +103,11 @@ export function ServiceDetailPage({ slug }: { slug: string }) {
         </Container>
       </section>
 
+      {/* Industry SaaS platforms (Custom Software only) */}
+      {slug === "custom-software" && <IndustrySolutions />}
+
       {/* Process */}
-      <section className="bg-white py-20 md:py-28">
+      <section className="bg-white py-10 md:py-14">
         <Container>
           <SectionHeading
             eyebrow="The engagement"
@@ -122,7 +129,7 @@ export function ServiceDetailPage({ slug }: { slug: string }) {
       </section>
 
       {/* FAQ */}
-      <section className="bg-surface py-20 md:py-28">
+      <section className="bg-surface py-10 md:py-14">
         <Container size="narrow">
           <SectionHeading align="center" eyebrow="FAQ" title="Common questions" className="mb-12" />
           <FAQ items={s.faqs} />
@@ -131,12 +138,11 @@ export function ServiceDetailPage({ slug }: { slug: string }) {
 
       {/* Related */}
       {related.length > 0 && (
-        <section className="bg-white py-20 md:py-28">
+        <section className="bg-white py-10 md:py-14">
           <Container>
             <div className="mb-12 flex items-end justify-between gap-4">
               <Reveal>
-                <Eyebrow>Keep exploring</Eyebrow>
-                <h2 className="mt-4 text-2xl font-semibold text-ink md:text-3xl">Related services</h2>
+                <h2 className="text-2xl font-semibold text-ink md:text-3xl">Related services</h2>
               </Reveal>
               <CTAButton href="/services" variant="ghost" arrow>
                 All services

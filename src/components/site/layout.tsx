@@ -44,7 +44,7 @@ export function Section({
     <section
       id={id}
       className={cn(
-        "relative py-20 md:py-28",
+        "relative py-10 md:py-14",
         tone === "surface" && "bg-surface",
         tone === "night" && "bg-night text-white",
         className,
@@ -80,11 +80,10 @@ export function Eyebrow({
 }
 
 /**
- * Section header: eyebrow + title + optional description.
+ * Section header: title + optional description.
  * Center or left aligned, light or dark tone.
  */
 export function SectionHeading({
-  eyebrow,
   title,
   description,
   align = "left",
@@ -92,6 +91,7 @@ export function SectionHeading({
   className,
   titleClassName,
 }: {
+  // `eyebrow` is accepted for call-site compatibility but no longer rendered.
   eyebrow?: string;
   title: React.ReactNode;
   description?: React.ReactNode;
@@ -109,7 +109,6 @@ export function SectionHeading({
         className,
       )}
     >
-      {eyebrow && <Eyebrow onDark={onDark}>{eyebrow}</Eyebrow>}
       <h2
         className={cn(
           "text-balance text-3xl font-semibold leading-[1.08] sm:text-4xl md:text-[2.75rem]",

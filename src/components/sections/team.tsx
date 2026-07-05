@@ -16,7 +16,7 @@ function avatarUrl(seed: string) {
 
 export function Team({ tone = "white" }: { tone?: "white" | "surface" }) {
   return (
-    <section id="team" className={`${tone === "surface" ? "bg-surface" : "bg-white"} scroll-mt-24 py-20 md:py-28`}>
+    <section id="team" className={`${tone === "surface" ? "bg-surface" : "bg-white"} scroll-mt-24 py-10 md:py-14`}>
       <Container>
         <SectionHeading
           eyebrow="The team"

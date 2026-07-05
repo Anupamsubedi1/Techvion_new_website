@@ -1,4 +1,4 @@
-import { Container, Eyebrow } from "@/components/site/layout";
+import { Container } from "@/components/site/layout";
 import { Reveal, Stagger, RevealItem } from "@/components/site/reveal";
 import { CTAButton } from "@/components/site/cta-button";
 import { ProjectCard } from "@/components/sections/project-card";
@@ -7,12 +7,11 @@ import { caseStudies } from "@/content/projects";
 export function HomeWork() {
   const featured = caseStudies.slice(0, 3);
   return (
-    <section className="bg-white py-20 md:py-28">
+    <section className="bg-white py-10 md:py-14">
       <Container>
         <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <Reveal className="max-w-xl">
-            <Eyebrow>Selected work</Eyebrow>
-            <h2 className="mt-4 text-balance text-3xl font-semibold leading-[1.08] text-ink sm:text-4xl md:text-[2.75rem]">
+            <h2 className="text-balance text-3xl font-semibold leading-[1.08] text-ink sm:text-4xl md:text-[2.75rem]">
               Real products, shipped and live
             </h2>
             <p className="mt-4 text-base leading-relaxed text-mutedink md:text-lg">
