@@ -62,7 +62,7 @@ export function ProjectCard({ project, priority = false }: { project: CaseStudy;
               className="inline-flex items-center gap-1 text-sm font-medium text-ink transition-colors hover:text-accent-ink"
             >
               Visit live site
-              <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-200 group-hover:-translate-x-0 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </a>
           ) : (
             /* Private / unlinked build: show the affordance, but link nowhere. */

@@ -18,7 +18,7 @@ import {
   SiGithub,
 } from "react-icons/si";
 import { Cloud, Check } from "lucide-react";
-import { Container, Eyebrow } from "@/components/site/layout";
+import { Container } from "@/components/site/layout";
 import { Reveal, Stagger, RevealItem } from "@/components/site/reveal";
 import { PageHero } from "@/components/site/page-hero";
 import { CTAButton } from "@/components/site/cta-button";
@@ -61,18 +61,9 @@ const heroLogos: { key: string; name: string }[] = [
 ];
 
 /** Centered, editorial section header. */
-function CenterHeader({
-  eyebrow,
-  title,
-  description,
-}: {
-  eyebrow: string;
-  title: string;
-  description?: string;
-}) {
+function CenterHeader({ title, description }: { title: string; description?: string }) {
   return (
     <Reveal className="mx-auto mb-14 flex max-w-2xl flex-col items-center gap-4 text-center md:mb-16">
-      <Eyebrow>{eyebrow}</Eyebrow>
       <h2 className="text-balance text-3xl font-semibold leading-[1.08] tracking-tight text-ink sm:text-4xl md:text-[2.75rem]">
         {title}
       </h2>
@@ -89,7 +80,11 @@ export function TechnologyPage() {
       <PageHero
         tone="night"
         eyebrow="How we build"
-        title="Engineering you can build a business on"
+        title={
+          <>
+            Engineering you can <span className="text-gradient-accent">build a business on</span>
+          </>
+        }
         description="A modern, boring-on-purpose stack and a disciplined process, so what we ship is fast, secure, accessible and easy to maintain for years."
         actions={
           <>
@@ -122,8 +117,7 @@ export function TechnologyPage() {
         <Container>
           <div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
             <Reveal className="lg:sticky lg:top-28 lg:self-start">
-              <Eyebrow>Principles</Eyebrow>
-              <h2 className="mt-4 text-balance text-3xl font-semibold leading-[1.08] tracking-tight text-ink sm:text-4xl md:text-[2.75rem]">
+              <h2 className="text-balance text-3xl font-semibold leading-[1.08] tracking-tight text-ink sm:text-4xl md:text-[2.75rem]">
                 Non-negotiables
               </h2>
               <p className="mt-5 max-w-sm text-base leading-relaxed text-mutedink md:text-lg">
@@ -157,7 +151,6 @@ export function TechnologyPage() {
       <section className="bg-surface py-16 md:py-24">
         <Container>
           <CenterHeader
-            eyebrow="The stack"
             title="Modern tools, chosen to last"
             description="We favour proven, well-supported technology over hype, so your product ages gracefully."
           />
@@ -192,31 +185,36 @@ export function TechnologyPage() {
         </Container>
       </section>
 
-      {/* Pillars */}
-      <section className="bg-white py-16 md:py-24">
-        <Container>
-          <CenterHeader
-            eyebrow="Reliability"
-            title="Six disciplines, on every project"
-            description="Quality isn't a phase at the end; it's built into how we architect, test, ship and watch your product."
-          />
-          <Stagger className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+      {/* Pillars: dark glass band */}
+      <section className="relative isolate overflow-hidden bg-night py-16 text-white md:py-24">
+        <div className="pointer-events-none absolute inset-0 grid-overlay" aria-hidden="true" />
+        <div
+          className="pointer-events-none absolute left-[-15%] top-[-30%] h-[400px] w-[560px] rounded-full bg-accent/15 blur-[130px]"
+          aria-hidden="true"
+        />
+        <Container className="relative">
+          <Reveal className="mx-auto mb-14 flex max-w-2xl flex-col items-center gap-4 text-center md:mb-16">
+            <h2 className="text-balance text-3xl font-semibold leading-[1.08] tracking-tight sm:text-4xl md:text-[2.75rem]">
+              Six disciplines, on every project
+            </h2>
+            <p className="max-w-xl text-base leading-relaxed text-white/65 md:text-lg">
+              Quality isn&apos;t a phase at the end; it&apos;s built into how we architect, test,
+              ship and watch your product.
+            </p>
+          </Reveal>
+          <Stagger className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             {pillars.map((pillar) => (
               <RevealItem key={pillar.title}>
-                <div className="group relative flex h-full flex-col overflow-hidden rounded-3xl border border-line bg-white p-7 shadow-soft transition-all duration-300 hover:-translate-y-1.5 hover:shadow-card motion-reduce:transform-none">
-                  <div
-                    className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-accent/45 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-                    aria-hidden="true"
-                  />
-                  <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-ink text-accent-bright shadow-soft">
+                <div className="group flex h-full flex-col rounded-3xl border border-white/10 bg-white/[0.04] p-7 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1.5 hover:border-accent/30 hover:bg-white/[0.07] motion-reduce:transform-none">
+                  <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-accent/15 text-accent-bright">
                     <Icon name={pillar.icon} className="h-6 w-6" />
                   </span>
-                  <h3 className="mt-5 text-lg font-semibold text-ink">{pillar.title}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-mutedink">{pillar.desc}</p>
-                  <ul className="mt-5 space-y-2 border-t border-line pt-5">
+                  <h3 className="mt-5 text-lg font-semibold text-white">{pillar.title}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-white/60">{pillar.desc}</p>
+                  <ul className="mt-5 space-y-2 border-t border-white/10 pt-5">
                     {pillar.points.map((pt) => (
-                      <li key={pt} className="flex items-center gap-2.5 text-sm text-ink">
-                        <Check className="h-4 w-4 shrink-0 text-accent-ink" />
+                      <li key={pt} className="flex items-center gap-2.5 text-sm text-white/80">
+                        <Check className="h-4 w-4 shrink-0 text-accent-bright" />
                         {pt}
                       </li>
                     ))}

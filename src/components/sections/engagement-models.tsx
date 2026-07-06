@@ -1,26 +1,32 @@
-import { Container, SectionHeading } from "@/components/site/layout";
-import { Stagger, RevealItem } from "@/components/site/reveal";
+import { Container } from "@/components/site/layout";
+import { Reveal, Stagger, RevealItem } from "@/components/site/reveal";
 import { Icon } from "@/components/site/icon";
 import { Check } from "lucide-react";
 import { engagementModels } from "@/content/about";
 
 export function EngagementModels({ tone = "white" }: { tone?: "white" | "surface" }) {
   return (
-    <section className={tone === "surface" ? "bg-surface py-10 md:py-14" : "bg-white py-10 md:py-14"}>
+    <section className={tone === "surface" ? "bg-surface py-16 md:py-24" : "bg-white py-16 md:py-24"}>
       <Container>
-        <SectionHeading
-          align="center"
-          eyebrow="Ways to work together"
-          title="Engagement models that fit your stage"
-          description="Whether you need a defined build, an embedded team, or someone to keep a live product healthy, there's a clear way in."
-          className="mb-14"
-        />
+        <Reveal className="mx-auto mb-14 flex max-w-2xl flex-col items-center gap-4 text-center">
+          <h2 className="text-balance text-3xl font-semibold leading-[1.08] tracking-tight text-ink sm:text-4xl md:text-[2.75rem]">
+            Engagement models that fit your stage
+          </h2>
+          <p className="max-w-xl text-base leading-relaxed text-mutedink md:text-lg">
+            Whether you need a defined build, an embedded team, or someone to keep a live product
+            healthy, there&apos;s a clear way in.
+          </p>
+        </Reveal>
         <Stagger className="grid gap-5 md:grid-cols-3">
           {engagementModels.map((m) => (
             <RevealItem key={m.name}>
-              <div className="flex h-full flex-col rounded-3xl border border-line bg-white p-7 shadow-soft transition-all duration-300 hover:-translate-y-1 hover:shadow-card">
-                <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-ink text-white">
-                  <Icon name={m.icon} className="h-6 w-6 text-accent-bright" />
+              <div className="group relative flex h-full flex-col overflow-hidden rounded-3xl border border-line bg-white p-7 shadow-soft transition-all duration-300 hover:-translate-y-1.5 hover:shadow-card motion-reduce:transform-none">
+                <div
+                  className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-accent/45 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                  aria-hidden="true"
+                />
+                <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-ink text-accent-bright shadow-soft">
+                  <Icon name={m.icon} className="h-6 w-6" />
                 </span>
                 <p className="mt-5 label-mono text-accent-ink">{m.best}</p>
                 <h3 className="mt-2 text-xl font-semibold text-ink">{m.name}</h3>
