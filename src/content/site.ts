@@ -34,7 +34,7 @@ export function whatsappLink(message?: string) {
 }
 
 export const primaryNav = [
-  { href: "/services", label: "Services" },
+  { href: "/#services", label: "Services" },
   { href: "/projects", label: "Work" },
   { href: "/technology", label: "How we build" },
   { href: "/about", label: "About" },
@@ -56,7 +56,7 @@ export const footerNav = {
     { href: "/services/maintenance-support", label: "Maintenance & Support" },
   ],
   Resources: [
-    { href: "/services", label: "All services" },
+    { href: "/#services", label: "All services" },
     { href: "/projects", label: "Recent work" },
     { href: "/contact#faq", label: "FAQ" },
     { href: "/contact", label: "Book a call" },

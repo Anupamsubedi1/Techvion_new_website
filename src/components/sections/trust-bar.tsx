@@ -22,14 +22,14 @@ const clients: {
     showName: true,
     parts: [{ text: "Big Sky", color: "#3C5A9C" }, { text: " Treks" }],
   },
-  // Wide horizontal wordmark — needs width, not height, and no separate name.
+  // Wide horizontal wordmark: needs width, not height, and no separate name.
   { name: "Himalaya Nepal Krishi Co.", logo: "/logo/himalaya_agro_nepal.png", imgClass: "h-14 max-w-[20rem] md:h-16" },
   { name: "Mardi Treks", logo: "/logo/mardi_treks.png", imgClass: "h-16 max-w-[13rem] md:h-20", showName: true },
   { name: "QuickStay", logo: "/logo/quickstay.png", imgClass: "h-12 max-w-[12rem] md:h-14" },
   { name: "Kapadaa", logo: "/logo/kapadaa.png", imgClass: "h-12 max-w-[12rem] md:h-14" },
   { name: "CBRS Nepal", logo: "/logo/cbrs.png", imgClass: "h-16 max-w-[13rem] md:h-20", showName: true },
   { name: "UnwindCabins", parts: [{ text: "Unwind", color: "#166543" }, { text: "Cabins" }] },
-  // Wide horizontal wordmarks (icon + brand baked in) — logo only, no name.
+  // Wide horizontal wordmarks (icon + brand baked in): logo only, no name.
   { name: "Connectify", logo: "/logo/connectifylogo.png", imgClass: "h-14 max-w-[15rem] md:h-16" },
   { name: "HamroBike", logo: "/logo/HamroBikelogo.png", imgClass: "h-14 max-w-[18rem] md:h-16" },
 ];

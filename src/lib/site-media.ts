@@ -8,7 +8,7 @@ export type HeroVideos = { laptop: string; mobile: string };
  *
  * The canonical values live in MongoDB (`techvion.site_media` → `_id: "hero_videos"`)
  * so they can be updated without a code change. These constants are a safe
- * fallback used only if the database is unreachable at render time — they point
+ * fallback used only if the database is unreachable at render time; they point
  * at the same uploaded assets, so the hero always renders.
  */
 const FALLBACK: HeroVideos = {

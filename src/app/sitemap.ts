@@ -6,7 +6,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const base = site.domain;
   const now = new Date();
 
-  const staticRoutes = ["", "/services", "/projects", "/technology", "/about", "/contact", "/privacy", "/terms"];
+  const staticRoutes = ["", "/projects", "/technology", "/about", "/contact", "/privacy", "/terms"];
 
   const entries: MetadataRoute.Sitemap = staticRoutes.map((route) => ({
     url: `${base}${route}`,

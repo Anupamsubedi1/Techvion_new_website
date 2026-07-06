@@ -9,7 +9,7 @@ type Props = { laptopSrc: string; mobileSrc: string };
 /**
  * Cloudinary first-frame still (`so_0`) used as the video's poster, derived from
  * the stored mp4 URL. Because the poster IS frame 0 of the video, playback
- * starts from the exact same image — a seamless still-to-motion start with no
+ * starts from the exact same image, a seamless still-to-motion start with no
  * visible swap.
  */
 function posterFor(url: string) {
@@ -20,7 +20,7 @@ function posterFor(url: string) {
  * Full-bleed hero intro video.
  *
  * Professional load sequence: a dark brand backdrop, then the device-correct
- * video reveals via its own poster frame with a single soft fade — no headline
+ * video reveals via its own poster frame with a single soft fade, with no headline
  * that appears and then disappears. The portrait (mobile) encode is shown in
  * full via `object-contain` so nothing is cropped or hidden behind the navbar;
  * the landscape (laptop) encode fills the screen with `object-cover`.

@@ -1,20 +1,39 @@
+"use client";
+
+import { useEffect, useRef, type ForwardRefExoticComponent, type RefAttributes } from "react";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import { useInView } from "framer-motion";
+import {
+  CodeXmlIcon,
+  ShoppingBagIcon,
+  TrendingUpIcon,
+  BrainIcon,
+  SettingsIcon,
+} from "@animateicons/react/lucide";
+import type { IconHandle } from "@animateicons/react";
 import { Container } from "@/components/site/layout";
-import { Icon } from "@/components/site/icon";
 import { serviceList } from "@/content/services";
 
 /**
- * Home services — a premium, editorial two-column section.
- * Left: eyebrow + large headline + supporting copy + a single text CTA, with a
- * subtle geometric accent. Right: the service pillars as quiet "navigation
- * items" (number · icon · title · one-liner · arrow) separated by hairlines,
- * with a fast, restrained hover (teal accent bar + arrow motion). No cards,
- * no shadows, no entrance animation — Linear/Vercel-grade calm.
- *
- * Palette is intentionally set to the requested premium spec (charcoal text on
- * warm white, deep-teal accent, ultra-light borders).
+ * Home services: a premium, editorial two-column section.
+ * Left: large headline + supporting copy + a subtle geometric accent.
+ * Right: the service pillars as quiet navigation items with animated icons
+ * (dark-navy tile + luminous cyan mark, per brand). Icons play once on scroll
+ * and again on hover; the tile deepens to night on hover.
  */
+type AnimatedIcon = ForwardRefExoticComponent<
+  { size?: number; duration?: number; isAnimated?: boolean; color?: string; className?: string } & RefAttributes<IconHandle>
+>;
+
+const animatedIcons: Record<string, AnimatedIcon> = {
+  "custom-software": CodeXmlIcon,
+  "web-ecommerce": ShoppingBagIcon,
+  "digital-marketing": TrendingUpIcon,
+  "data-science-ai": BrainIcon,
+  "maintenance-support": SettingsIcon,
+};
+
 const blurbs: Record<string, string> = {
   "custom-software": "Software built around your workflows.",
   "web-ecommerce": "Sites and storefronts engineered to convert.",
@@ -23,12 +42,65 @@ const blurbs: Record<string, string> = {
   "maintenance-support": "Keep your product fast, secure and online.",
 };
 
+function ServiceRow({
+  slug,
+  name,
+  blurb,
+  Icon,
+  index,
+}: {
+  slug: string;
+  name: string;
+  blurb: string;
+  Icon: AnimatedIcon;
+  index: number;
+}) {
+  const rowRef = useRef<HTMLAnchorElement>(null);
+  const iconRef = useRef<IconHandle>(null);
+  const inView = useInView(rowRef, { once: true, amount: 0.6 });
+
+  // Play the icon animation once as each row scrolls in (staggered).
+  useEffect(() => {
+    if (!inView) return;
+    const t = setTimeout(() => iconRef.current?.startAnimation(), 180 + index * 140);
+    return () => clearTimeout(t);
+  }, [inView, index]);
+
+  return (
+    <Link
+      ref={rowRef}
+      href={`/services/${slug}`}
+      onMouseEnter={() => iconRef.current?.startAnimation()}
+      onMouseLeave={() => iconRef.current?.stopAnimation()}
+      className="group relative flex items-center gap-4 border-b border-[#E9ECEF] py-6 pl-1 transition-colors duration-300 hover:bg-[#0A7C86]/[0.02] sm:gap-6 sm:py-7"
+    >
+      {/* Hover accent line */}
+      <span
+        aria-hidden
+        className="absolute -left-px top-0 h-full w-[2px] origin-top scale-y-0 bg-[#0A7C86] transition-transform duration-300 ease-out group-hover:scale-y-100"
+      />
+
+      {/* Dark tile + luminous cyan mark (brand icon lockup) */}
+      <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-ink text-accent-bright shadow-soft transition-colors duration-300 group-hover:bg-night">
+        <Icon ref={iconRef} size={22} />
+      </span>
+
+      <div className="min-w-0 flex-1">
+        <h3 className="text-lg font-semibold tracking-[-0.01em] text-[#0F1720] sm:text-xl">{name}</h3>
+        <p className="mt-1 text-sm leading-relaxed text-[#5B6673]">{blurb}</p>
+      </div>
+
+      <ArrowRight className="h-5 w-5 shrink-0 -translate-x-1 text-[#9AA5B1] transition-all duration-300 ease-out group-hover:translate-x-0 group-hover:text-[#0A7C86]" />
+    </Link>
+  );
+}
+
 export function HomeServices() {
   return (
-    <section className="bg-[#F8F8F7] py-16 md:py-24">
+    <section id="services" className="scroll-mt-24 bg-[#F8F8F7] py-16 md:py-24">
       <Container>
         <div className="grid items-start gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)] lg:gap-16 xl:gap-24">
-          {/* Left — editorial column */}
+          {/* Left: editorial column */}
           <div className="flex flex-col">
             <h2 className="text-balance text-4xl font-bold leading-[1.04] tracking-[-0.02em] text-[#0F1720] sm:text-5xl md:text-[3.25rem]">
               One team. Every layer of your product.
@@ -56,35 +128,17 @@ export function HomeServices() {
             </div>
           </div>
 
-          {/* Right — service pillars as navigation items */}
+          {/* Right: service pillars as navigation items */}
           <div className="border-t border-[#E9ECEF]">
-            {serviceList.map((s) => (
-              <Link
+            {serviceList.map((s, i) => (
+              <ServiceRow
                 key={s.slug}
-                href={`/services/${s.slug}`}
-                className="group relative flex items-center gap-4 border-b border-[#E9ECEF] py-6 pl-1 transition-colors duration-300 hover:bg-[#0A7C86]/[0.02] sm:gap-6 sm:py-7"
-              >
-                {/* Hover accent line */}
-                <span
-                  aria-hidden
-                  className="absolute -left-px top-0 h-full w-[2px] origin-top scale-y-0 bg-[#0A7C86] transition-transform duration-300 ease-out group-hover:scale-y-100"
-                />
-
-                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#0A7C86]/[0.06] text-[#0A7C86] transition-colors duration-300 group-hover:bg-[#0A7C86]/[0.12]">
-                  <Icon name={s.icon} className="h-5 w-5" />
-                </span>
-
-                <div className="min-w-0 flex-1">
-                  <h3 className="text-lg font-semibold tracking-[-0.01em] text-[#0F1720] sm:text-xl">
-                    {s.name}
-                  </h3>
-                  <p className="mt-1 text-sm leading-relaxed text-[#5B6673]">
-                    {blurbs[s.slug] ?? s.tagline}
-                  </p>
-                </div>
-
-                <ArrowRight className="h-5 w-5 shrink-0 -translate-x-1 text-[#9AA5B1] transition-all duration-300 ease-out group-hover:translate-x-0 group-hover:text-[#0A7C86]" />
-              </Link>
+                slug={s.slug}
+                name={s.name}
+                blurb={blurbs[s.slug] ?? s.tagline}
+                Icon={animatedIcons[s.slug] ?? CodeXmlIcon}
+                index={i}
+              />
             ))}
           </div>
         </div>

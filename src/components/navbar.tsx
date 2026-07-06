@@ -132,7 +132,7 @@ export function Navbar() {
                             ))}
                           </div>
                           <Link
-                            href="/services"
+                            href="/#services"
                             className="mt-1 flex items-center justify-between rounded-xl bg-surface px-4 py-3 text-sm font-medium text-ink transition-colors hover:bg-ink hover:text-white"
                           >
                             View all services
